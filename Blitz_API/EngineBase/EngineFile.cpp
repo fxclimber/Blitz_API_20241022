@@ -21,10 +21,6 @@ void UEngineFile::FileOpen(const char* _Mode)
 	// 파일을 열지 못했다.
 	if (nullptr == File)
 	{
-		// char [] Arr0
-		// char [] Arr1
-		// Arr0 + Arr1
-
 		MSGASSERT(Path /*+ "파일 오픈에 실패했습니다"*/);
 	}
 }

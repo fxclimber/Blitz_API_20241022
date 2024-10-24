@@ -1,0 +1,16 @@
+
+<구조>
+
+1. base :		수학,디버깅,os,이름,메모리 할당, new재할당
+				한번 완성되면 다시 빌드하지않게 된다
+
+2. platform :	os관련
+				입력
+
+3. EngineCore
+	Object
+	Rendering
+	Collision
+
+	- 많은 .h .cpp가 만들어지고 안정되면, 대부분 재빌드되지않는다. 미리 컴파일된 헤더
+	- .Message 처리 부분 ->펑셔널 

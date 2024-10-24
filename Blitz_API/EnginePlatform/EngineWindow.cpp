@@ -1,9 +1,11 @@
+#include "PreCompiledFile.h"
 #include "EngineWindow.h"
 #include <EngineBase/EngineDebug.h>
 
 
 HINSTANCE UEngineWindow::hInstance = nullptr;
 std::map<std::string, WNDCLASSEXA> UEngineWindow::WindowClass;
+int WindowCount = 0;
 
 //LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
@@ -21,7 +23,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     }
     break;
     case WM_DESTROY:
-        PostQuitMessage(0);
+        --WindowCount;
         break;
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
@@ -31,9 +33,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 void UEngineWindow::EngineWindowInit(HINSTANCE _Instance)
 {
+	
+    hInstance = _Instance;
+
     //멀티바이트 문자집합을 사용할것이므로, 뒤에 A붙은 함수 사용!
     WNDCLASSEXA wcex;
-
     wcex.cbSize = sizeof(WNDCLASSEXA);
     wcex.style = CS_HREDRAW | CS_VREDRAW;
     wcex.lpfnWndProc = WndProc;
@@ -49,7 +53,29 @@ void UEngineWindow::EngineWindowInit(HINSTANCE _Instance)
 
     CreateWindowClass(wcex);
 
-	hInstance = _Instance;
+}
+int UEngineWindow::WindowMessageLoop(EngineDelegate _FrameFunction)
+{
+	MSG msg;
+
+	while (WindowCount)
+	{
+		if (0 != PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+        //메세지 처리후 게임엔진을 돌린다.엔진api코어의 tick,render에서 
+
+        if (true == _FrameFunction.IsBind())
+        {
+            _FrameFunction();
+        }
+        // 메세지가 없는 시간에 내 게임을 돌리는거야.
+        // 메세지 처리하고 나서 내 게임엔진을 돌린다.
+
+	}
+	return (int)msg.wParam;
 }
 
 void UEngineWindow::CreateWindowClass(const WNDCLASSEXA& _Class)
@@ -67,24 +93,7 @@ void UEngineWindow::CreateWindowClass(const WNDCLASSEXA& _Class)
     WindowClass.insert(std::pair{ _Class.lpszClassName, _Class });
 }
 
-//bool UEngineWindow::IsWindowClass(const std::string_view _text)
-//{
-//}
 
-int UEngineWindow::WindowMessageLoop()
-{
-	MSG msg;
-
-	while (GetMessage(&msg, nullptr, 0, 0))
-	{
-		if (!TranslateAccelerator(msg.hwnd, nullptr, &msg))
-		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-		}
-	}
-	return (int)msg.wParam;
-}
 
 UEngineWindow::UEngineWindow()
 {
@@ -122,20 +131,15 @@ void UEngineWindow::Create(std::string_view _TitleName, std::string_view _ClassN
 
 }
 
-void UEngineWindow::Create(std::string_view _ClassName)
-{
-    Create("Window", _ClassName);
-}
-
 void UEngineWindow::Open(std::string_view _TitleName)
 {
     if (nullptr == WindowHandle)
     {
-        Create();
+        Create("Window");
     }
     ShowWindow(WindowHandle, SW_SHOW);
     UpdateWindow(WindowHandle);
-
+    ++WindowCount;
 }
 
 

@@ -1,9 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="Player.h">
+      <Filter>ContentsObject</Filter>
+    </ClInclude>
+    <ClInclude Include="PreCompiledFile.h">
+      <Filter>PreCompiledFile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Player.cpp">
+      <Filter>ContentsObject</Filter>
+    </ClCompile>
+    <ClCompile Include="PreCompiledFile.cpp">
+      <Filter>PreCompiledFile</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="ContentsObject">
+      <UniqueIdentifier>{a11097a5-1646-4d86-a81c-712272e26edd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PreCompiledFile">
+      <UniqueIdentifier>{fe314114-107b-427a-b36c-54b8ef05a38d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

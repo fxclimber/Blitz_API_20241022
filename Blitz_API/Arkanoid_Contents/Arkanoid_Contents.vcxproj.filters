@@ -7,6 +7,12 @@
     <ClInclude Include="PreCompiledFile.h">
       <Filter>PreCompiledFile</Filter>
     </ClInclude>
+    <ClInclude Include="PlayGameMode.h">
+      <Filter>ContentsObject\GameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="ArkanoidContentsCore.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Player.cpp">
@@ -15,6 +21,12 @@
     <ClCompile Include="PreCompiledFile.cpp">
       <Filter>PreCompiledFile</Filter>
     </ClCompile>
+    <ClCompile Include="PlayGameMode.cpp">
+      <Filter>ContentsObject\GameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="ArkanoidContentsCore.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ContentsObject">
@@ -22,6 +34,12 @@
     </Filter>
     <Filter Include="PreCompiledFile">
       <UniqueIdentifier>{fe314114-107b-427a-b36c-54b8ef05a38d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ContentsObject\GameMode">
+      <UniqueIdentifier>{f0f40633-3907-4f70-b1d3-e7c2eb6bf4e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{77b186b4-a3fb-43c1-84d6-bade0a6ef5ef}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

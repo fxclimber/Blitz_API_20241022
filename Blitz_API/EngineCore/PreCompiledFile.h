@@ -1,7 +1,6 @@
 #pragma once
-#include <Windows.h>
-#include <list>
-#include <vector>
-#include <iostream>
-#include <functional>
-#include <map>
+
+#include <EnginePlatform/PreCompiledFile.h>
+
+#include "Actor.h"
+#include "Level.h"

@@ -18,12 +18,12 @@ public:
     bool IsBind()
     {
         // 함수가 리스트에 하나라도 있으면 true 반환 (바인딩 여부 확인)
-        return !Functions.empty();
+        return false == Functions.empty();
     }
 
-    void operator=(std::function<void()> _Function)
+    void operator+=(std::function<void()> _Function)
     {
-        // = 연산자로 전달된 함수를 리스트에 추가 (push_back)
+        //list 에 추가하는것이므로 += 로 변경
         Functions.push_back(_Function);
     }
 

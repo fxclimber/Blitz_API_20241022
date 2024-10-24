@@ -50,15 +50,19 @@ void UEngineWindow::EngineWindowInit(HINSTANCE _Instance)
     wcex.lpszMenuName = nullptr;
     wcex.lpszClassName = "Default";
     wcex.hIconSm = nullptr;
-
     CreateWindowClass(wcex);
 
 }
-int UEngineWindow::WindowMessageLoop(EngineDelegate _FrameFunction)
+int UEngineWindow::WindowMessageLoop(EngineDelegate _StartFunction, EngineDelegate _FrameFunction)
 {
-	MSG msg;
+	MSG msg = MSG();
 
-	while (WindowCount)
+    if (true == _StartFunction.IsBind())
+    {
+        _StartFunction();
+    }
+
+	while (0 != WindowCount)
 	{
 		if (0 != PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 		{
@@ -97,15 +101,6 @@ void UEngineWindow::CreateWindowClass(const WNDCLASSEXA& _Class)
 
 UEngineWindow::UEngineWindow()
 {
-    HWND WindowHandle = nullptr;
-
-
-
-
-    if (!WindowHandle)
-    {
-        return;
-    }
 }
 
 UEngineWindow::~UEngineWindow()
@@ -123,12 +118,13 @@ void UEngineWindow::Create(std::string_view _TitleName, std::string_view _ClassN
     WindowHandle = CreateWindowA(_ClassName.data(),_TitleName.data(), WS_OVERLAPPEDWINDOW,
         0, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
-    if (!WindowHandle)
+    if ( nullptr == WindowHandle)
     {
         MSGASSERT("윈도우 생성에 실패했습니다" + std::string(_TitleName));
         return;
     }
-
+    //윈도우의 hdc를 여기서 얻음
+    BackBuffer = GetDC(WindowHandle);
 }
 
 void UEngineWindow::Open(std::string_view _TitleName)
@@ -137,6 +133,12 @@ void UEngineWindow::Open(std::string_view _TitleName)
     {
         Create("Window");
     }
+
+    if (0 == WindowHandle)
+    {
+        return;
+    }
+
     ShowWindow(WindowHandle, SW_SHOW);
     UpdateWindow(WindowHandle);
     ++WindowCount;

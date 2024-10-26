@@ -10,12 +10,17 @@ public:
 	~AActor();
 
 	virtual void BeginPlay(){}
-	virtual void Tick(){}
+	virtual void Tick(float _DeltaTime){}
 	virtual void Render();
 
 	class ULevel* GetWorld()
 	{
 		return World;
+	}
+
+	FVector2D GetActorLocation()
+	{
+		return Location;
 	}
 
 	void SetActorLocation(FVector2D _Location)

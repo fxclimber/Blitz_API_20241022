@@ -1,6 +1,11 @@
 #pragma once
 
-//FVector2D == FVector로 하겠다
+// FVector로 통일하겠습니다.
+// FVector2D xy
+// FVector3D xyz
+// FVector4D xyzw
+// FVector4D == FVector;
+
 class FVector2D
 {
 public:
@@ -17,8 +22,8 @@ public:
 	{
 
 	}
-	
-	FVector2D(float _X, float _Y) : X(_X),Y(_Y)
+
+	FVector2D(float _X, float _Y) : X(_X), Y(_Y)
 	{
 
 	}
@@ -43,13 +48,15 @@ public:
 		return { X * 0.5f, Y * 0.5f };
 	}
 
-	FVector2D operator*(float _Value)const
+	FVector2D operator*(float _Value) const
 	{
 		FVector2D Result;
 		Result.X = X * _Value;
 		Result.Y = Y * _Value;
 		return Result;
 	}
+
+
 
 	FVector2D operator+(FVector2D _Other) const
 	{
@@ -58,6 +65,7 @@ public:
 		Result.Y = Y + _Other.Y;
 		return Result;
 	}
+
 	FVector2D operator-(FVector2D _Other) const
 	{
 		FVector2D Result;
@@ -65,6 +73,7 @@ public:
 		Result.Y = Y - _Other.Y;
 		return Result;
 	}
+
 
 	FVector2D operator/(int _Value) const
 	{
@@ -81,6 +90,57 @@ public:
 	}
 
 	FVector2D& operator+=(FVector2D _Other)
+	{
+		X += _Other.X;
+		Y += _Other.Y;
+		return *this;
+	}
+};
+
+class FIntPoint
+{
+public:
+	int X = 0;
+	int Y = 0;
+
+	static const FIntPoint LEFT;
+	static const FIntPoint RIGHT;
+	static const FIntPoint UP;
+	static const FIntPoint DOWN;
+
+	FIntPoint()
+	{
+
+	}
+
+	FIntPoint(int _X, int _Y) : X(_X), Y(_Y)
+	{
+
+	}
+
+	FIntPoint operator+(FIntPoint _Other) const
+	{
+		FIntPoint Result;
+		Result.X = X + _Other.X;
+		Result.Y = Y + _Other.Y;
+		return Result;
+	}
+
+	FIntPoint operator/(int _Value) const
+	{
+		FIntPoint Result;
+		Result.X = X / _Value;
+		Result.Y = Y / _Value;
+		return Result;
+	}
+
+
+	bool operator==(FIntPoint _Other) const
+	{
+		return X == _Other.X && Y == _Other.Y;
+	}
+
+	FIntPoint& operator+=(FIntPoint _Other)
 	{
 		X += _Other.X;
 		Y += _Other.Y;

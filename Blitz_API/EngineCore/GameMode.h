@@ -14,3 +14,7 @@ private:
 
 };
 
+class GameMode
+{
+};
+

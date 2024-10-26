@@ -9,7 +9,7 @@ public:
 	ULevel();
 	~ULevel();
 
-	void Tick();
+	void Tick(float _DeltaTime);
 	void Render();
 
 	template<typename ActorType>
@@ -32,8 +32,9 @@ private:
 	void CreateGameMode()
 	{
 		GameMode = new GameModeType();
+		//화면을 보는 카메라
 		MainPawn = new MainPawnType();
-		//월드세팅이 먼저되는것이 중요함
+		//월드세팅이 먼저되는것이 중요
 		MainPawn->World = this;
 		GameMode->World = this;
 

@@ -5,8 +5,11 @@
 #include <EngineBase/EngineDelegate.h>
 #include <EngineBase/EngineDebug.h>
 
+//1번 세팅후 바뀌지않을 데이타
 UEngineAPICore* UEngineAPICore::MainCore = nullptr;
 UContentsCore* UEngineAPICore::UserCore = nullptr;
+
+#include <Windows.h>
 
 UEngineAPICore::UEngineAPICore()
 {
@@ -24,8 +27,8 @@ UEngineAPICore::~UEngineAPICore()
 			delete StartIter->second;
 			StartIter->second = nullptr;
 		}
-		Levels.clear();
 	}
+		Levels.clear();
 }
 
 int UEngineAPICore::EngineStart(HINSTANCE _Inst, UContentsCore* _UserCore)
@@ -60,12 +63,17 @@ void UEngineAPICore::EngineTick()
 
 void UEngineAPICore::Tick()
 {
+	//시간재기,현재시간
+	DeltaTimer.TimeCheck();
+	float DeltaTime = DeltaTimer.GetDeltaTime();
+
+
 	if (nullptr == CurLevel)
 	{
 		MSGASSERT("엔진코어에 현재레벨이 지정되지않았다");
 		return;
 	}
-	CurLevel->Tick();
+	CurLevel->Tick(DeltaTime);
 	CurLevel->Render();
 }
 

@@ -10,8 +10,12 @@
     <ClInclude Include="PreCompiledFile.h">
       <Filter>PreCompiledFile</Filter>
     </ClInclude>
-    <ClInclude Include="Level.h" />
-    <ClInclude Include="GameMode.h" />
+    <ClInclude Include="Level.h">
+      <Filter>Object\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMode.h">
+      <Filter>Object\Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp">
@@ -23,8 +27,12 @@
     <ClCompile Include="PreCompiledFile.cpp">
       <Filter>PreCompiledFile</Filter>
     </ClCompile>
-    <ClCompile Include="Level.cpp" />
-    <ClCompile Include="GameMode.cpp" />
+    <ClCompile Include="Level.cpp">
+      <Filter>Object\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMode.cpp">
+      <Filter>Object\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -35,6 +43,12 @@
     </Filter>
     <Filter Include="PreCompiledFile">
       <UniqueIdentifier>{fbbea3e6-c8be-40e2-b9e4-02d759baf13e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Actor">
+      <UniqueIdentifier>{cf408943-7625-4a46-8477-71a312b7a622}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Level">
+      <UniqueIdentifier>{4113baec-e00c-4a77-aaec-ff344133de18}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -42,6 +42,7 @@ protected:
 private:
 	static HINSTANCE hInstance;
 	static std::map<std::string, WNDCLASSEXA> WindowClass;
+
 	//1°³
 	HWND WindowHandle = nullptr;
 	HDC BackBuffer = nullptr;

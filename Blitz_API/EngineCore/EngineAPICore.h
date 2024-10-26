@@ -3,6 +3,7 @@
 
 #include <Windows.h>
 #include <EnginePlatform/EngineWindow.h>
+#include <EngineBase/EngineTimer.h>
 
 #pragma comment (lib, "EngineBase.lib")
 #pragma comment (lib, "EnginePlatform.lib")
@@ -60,6 +61,7 @@ private:
 	static UEngineAPICore* MainCore;//자신을 포인터전역으로 갖고있다
 	static UContentsCore* UserCore;
 
+	UEngineTimer DeltaTimer = UEngineTimer();
 	UEngineWindow EngineMainWindow; //엔진 메인 윈도우
 
 	//만들어진 모든 레벨

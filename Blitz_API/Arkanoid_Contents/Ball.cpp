@@ -2,11 +2,12 @@
 #include "Ball.h"
 #include <EngineCore/EngineAPICore.h>
 #include <EnginePlatform/EngineWinImage.h>
+#include <EnginePlatform/EngineInput.h>
 
 ABall::ABall()
 {
-	SetActorLocation({ 300,300});
-	SetActorScale({ 150,150 });
+	SetActorLocation({ 600,600});
+	SetActorScale({ 40,40 });
 
 }
 
@@ -33,6 +34,25 @@ void ABall::MoveFunction(FVector2D _Dir)
 	AddActorLocation(_Dir * DeltaTime * Speed);
 
 }
+
+//void ABall::Render()
+//{
+//	FVector2D LeftTop = Location - Scale.Half();
+//	FVector2D RightBot = Location + Scale.Half();
+//
+//	UEngineWindow& MainWindow = UEngineAPICore::GetCore()->GetMainWindow();
+//	HDC BackHDC = MainWindow.GetBackBuffer();
+//
+//	POINT diamondPoints[4] = {
+//		{ Location.iX(), LeftTop.iY() },            // 상단
+//		{ RightBot.iX(), Location.iY() },           // 오른쪽
+//		{ Location.iX(), RightBot.iY() },           // 하단
+//		{ LeftTop.iX(), Location.iY() }             // 왼쪽
+//	};
+//
+//	// 마름모 그리기
+//	Polygon(BackHDC, diamondPoints, 4);
+//}
 
 void ABall::Tick(float _DeltaTime)
 {

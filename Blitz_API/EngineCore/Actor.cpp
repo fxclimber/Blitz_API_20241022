@@ -26,6 +26,8 @@ void AActor::Render()
 
 		Rectangle(BackHDC, LeftTop.iX(), LeftTop.iY(), RightBot.iX(), RightBot.iY());
 
+
+
 	}
 
 

@@ -62,7 +62,7 @@ private:
 		// 눌리다가 뗏을때
 		bool IsUp = false;
 		//안누르고 있을때
-		bool IsFree = false;
+		bool IsFree = true;
 
 		float PressTime = 0.0f;
 

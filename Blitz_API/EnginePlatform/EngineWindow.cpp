@@ -161,5 +161,14 @@ void UEngineWindow::Open(std::string_view _TitleName)
     ++WindowCount;
 }
 
+void UEngineWindow::SetWindowPosAndScale(FVector2D _Pos, FVector2D _Scale)
+{
+    RECT Rc = { 0, 0, _Scale.iX(), _Scale.iY() };
+    AdjustWindowRect(&Rc, WS_OVERLAPPEDWINDOW, FALSE);
+
+    ::SetWindowPos(WindowHandle, nullptr, _Pos.iX(), _Pos.iY(), Rc.right - Rc.left, Rc.bottom - Rc.top, SWP_NOZORDER);
+
+}
+
 
 

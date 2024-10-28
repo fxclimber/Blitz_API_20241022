@@ -11,8 +11,12 @@ public:
 	void Tick(float _DeltaTime) override;
 	void MoveFunction(FVector2D _Dir);
 
+	//void Render()override;
+
 private:
 	float Speed = 100.0f;
+	FVector2D Location = FVector2D::ZERO;
+	FVector2D Scale = FVector2D::ZERO;
 
 
 };

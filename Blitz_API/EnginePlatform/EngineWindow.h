@@ -9,7 +9,9 @@
 
 //user header
 #include <EngineBase/EngineDelegate.h>
-#include "EngineInput.h"
+#include <EngineBase/EngineMath.h>
+#include "EngineWinImage.h"
+
 
 class UEngineWindow
 {
@@ -43,6 +45,8 @@ public:
 		// C++ 에 가까운 함수
 		SetWindowTextA(WindowHandle, Text.data());
 	}
+
+	void SetWindowPosAndScale(FVector2D _Pos, FVector2D _Scale);
 
 protected:
 

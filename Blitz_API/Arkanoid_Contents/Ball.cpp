@@ -1,12 +1,12 @@
 #include "PreCompiledFile.h"
 #include "Ball.h"
 #include <EngineCore/EngineAPICore.h>
-
+#include <EnginePlatform/EngineWinImage.h>
 
 ABall::ABall()
 {
-	SetActorLocation({ 300,300 });
-	SetActorScale({ 50,50 });
+	SetActorLocation({ 300,300});
+	SetActorScale({ 150,150 });
 
 }
 
@@ -16,48 +16,47 @@ ABall::~ABall()
 
 void ABall::BeginPlay()
 {
+	//UEngineInput::GetInst().BindAction('A', KeyEvent::Press, std::bind(&ABall::MoveFunction, this, FVector2D::LEFT));
+	//UEngineInput::GetInst().BindAction('D', KeyEvent::Press, std::bind(&ABall::MoveFunction, this, FVector2D::RIGHT));
+	//UEngineInput::GetInst().BindAction('S', KeyEvent::Press, std::bind(&ABall::MoveFunction, this, FVector2D::DOWN));
+	//UEngineInput::GetInst().BindAction('W', KeyEvent::Press, std::bind(&ABall::MoveFunction, this, FVector2D::UP));
+
+}
+
+
+
+void ABall::MoveFunction(FVector2D _Dir)
+{
+
+	float DeltaTime = UEngineAPICore::GetCore()->GetDeltaTime();
+
+	AddActorLocation(_Dir * DeltaTime * Speed);
+
 }
 
 void ABall::Tick(float _DeltaTime)
 {
-	AddActorLocation(FVector2D::RIGHT * _DeltaTime * Speed);
-}
 
-void ABall::Render()
-{
+	//if (3.0f < UEngineInput::GetInst().IsPressTime(VK_LBUTTON))
+	//{
+	//	SetActorLocation(GetActorLocation());
+	//}
+
+		if (true == UEngineInput::GetInst().IsPress('D'))
 	{
-		
-		//마름모
-		//UEngineTimer timer = UEngineTimer();
-
-		//float time = timer.GetDeltaTime();
-		//float waveAmplitude = 100.0f; // 진폭 크기
-
-		// 시간에 따른 x, y 변화를 offset에 저장
-		FVector2D offset = FVector2D(200, 100);
-
-
-		// 중심에서 좌상, 우상, 우하, 좌하 꼭짓점을 계산
-		FVector2D LeftTop = FVector2D(Location.X - Scale.X * 0.5f, Location.Y) + offset;      // 왼쪽 중간
-		FVector2D RightTop = FVector2D(Location.X, Location.Y - Scale.Y * 0.5f) + offset;     // 위쪽 중간
-		FVector2D RightBot = FVector2D(Location.X + Scale.X * 0.5f, Location.Y) + offset;     // 오른쪽 중간
-		FVector2D LeftBot = FVector2D(Location.X, Location.Y + Scale.Y * 0.5f) + offset;      // 아래쪽 중간
-
-		// 각 꼭짓점 좌표를 배열로 생성
-		POINT diamondPoints[4] = {
-			{ LeftTop.iX(), LeftTop.iY() },
-			{ RightTop.iX(), RightTop.iY() },
-			{ RightBot.iX(), RightBot.iY() },
-			{ LeftBot.iX(), LeftBot.iY() }
-		};
-
-		// 마름모 그리기
-		UEngineWindow& window =  UEngineAPICore::GetCore()->GetMainWindow();
-		HDC BackHDC = window.GetBackBuffer();
-
-		// Polygon 함수를 사용해 마름모를 그립니다.
-		Polygon(BackHDC, diamondPoints, 4);
-
+		AddActorLocation(FVector2D::RIGHT * _DeltaTime * Speed);
+	}
+	if (true == UEngineInput::GetInst().IsPress('A'))
+	{
+		AddActorLocation(FVector2D::LEFT * _DeltaTime * Speed);
+	}
+	if (true == UEngineInput::GetInst().IsPress('S'))
+	{
+		AddActorLocation(FVector2D::DOWN * _DeltaTime * Speed);
+	}
+	if (true == UEngineInput::GetInst().IsPress('W'))
+	{
+		AddActorLocation(FVector2D::UP * _DeltaTime * Speed);
 	}
 
 }

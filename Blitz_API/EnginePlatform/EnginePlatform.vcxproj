@@ -153,10 +153,12 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EngineInput.h" />
     <ClInclude Include="EngineWindow.h" />
     <ClInclude Include="PreCompiledFile.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EngineInput.cpp" />
     <ClCompile Include="EngineWindow.cpp" />
     <ClCompile Include="PreCompiledFile.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

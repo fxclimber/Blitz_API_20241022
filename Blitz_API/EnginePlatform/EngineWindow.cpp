@@ -148,7 +148,7 @@ void UEngineWindow::Open(std::string_view _TitleName)
 {
     if (nullptr == WindowHandle)
     {
-        Create("Window");
+        Create(_TitleName);
     }
 
     if (0 == WindowHandle)

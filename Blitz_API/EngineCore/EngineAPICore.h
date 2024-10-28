@@ -38,6 +38,12 @@ public:
 		return EngineMainWindow;
 	}
 
+	float GetDeltaTime()
+	{
+		return DeltaTimer.GetDeltaTime();
+	}
+
+
 	//2타입모두 정의해야 쓸수있다.
 	template<typename GameModeType, typename MainPawnType>
 	ULevel* CreateLevel(std::string_view _LevelName)

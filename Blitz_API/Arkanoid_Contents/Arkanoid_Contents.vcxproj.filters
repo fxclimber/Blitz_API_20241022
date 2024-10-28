@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="Player.h">
-      <Filter>ContentsObject</Filter>
-    </ClInclude>
     <ClInclude Include="PreCompiledFile.h">
       <Filter>PreCompiledFile</Filter>
     </ClInclude>
@@ -14,13 +11,19 @@
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Ball.h">
-      <Filter>ContentsObject\Actor</Filter>
+      <Filter>ContentsObject\Play</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>ContentsObject\Global</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>ContentsObject\Play</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayMap.h">
+      <Filter>ContentsObject\Play</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Player.cpp">
-      <Filter>ContentsObject</Filter>
-    </ClCompile>
     <ClCompile Include="PreCompiledFile.cpp">
       <Filter>PreCompiledFile</Filter>
     </ClCompile>
@@ -31,7 +34,16 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Ball.cpp">
-      <Filter>ContentsObject\Actor</Filter>
+      <Filter>ContentsObject\Play</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>ContentsObject\Global</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>ContentsObject\Play</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayMap.cpp">
+      <Filter>ContentsObject\Play</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -47,7 +59,10 @@
     <Filter Include="Core">
       <UniqueIdentifier>{77b186b4-a3fb-43c1-84d6-bade0a6ef5ef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ContentsObject\Actor">
+    <Filter Include="ContentsObject\Global">
+      <UniqueIdentifier>{f7445582-885d-4d6e-946a-2593ed4a2541}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ContentsObject\Play">
       <UniqueIdentifier>{51df0539-91f8-4c9c-8caa-27dcaec1cd05}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

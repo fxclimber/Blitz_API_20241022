@@ -17,6 +17,7 @@ void ArkanoidContentsCore::BeginPlay()
 {
 	UEngineAPICore::GetCore()->CreateLevel<APlayGameMode, APlayer>("Play");
 	UEngineAPICore::GetCore()->OpenLevel("Play");
+	UEngineAPICore::GetCore()->GetMainWindow().SetWindowTitle("EJWindow");
 }
 
 void ArkanoidContentsCore::Tick()

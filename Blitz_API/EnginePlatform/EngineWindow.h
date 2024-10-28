@@ -9,7 +9,7 @@
 
 //user header
 #include <EngineBase/EngineDelegate.h>
-
+#include "EngineInput.h"
 
 class UEngineWindow
 {
@@ -31,11 +31,17 @@ public:
 	//void Open();      
 	void Create(std::string_view _TitleName, std::string_view _ClassName = "Default");
 	void Open(std::string_view _TitleName = "Window");
-	//static void Open(std::string_view _TitleName = "Window");
 
 	inline HDC GetBackBuffer()
 	{
 		return BackBuffer;
+	}
+
+	inline void SetWindowTitle(std::string_view Text)
+	{
+		// 래핑함수가 아니라 네이티브 함수라고 한다
+		// C++ 에 가까운 함수
+		SetWindowTextA(WindowHandle, Text.data());
 	}
 
 protected:
@@ -43,7 +49,6 @@ protected:
 private:
 	static HINSTANCE hInstance;
 	static std::map<std::string, WNDCLASSEXA> WindowClass;
-
 	//1개
 	HWND WindowHandle = nullptr;
 	HDC BackBuffer = nullptr;

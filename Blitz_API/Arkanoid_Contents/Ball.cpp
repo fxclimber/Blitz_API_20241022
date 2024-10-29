@@ -4,11 +4,14 @@
 #include <EnginePlatform/EngineWinImage.h>
 #include <EnginePlatform/EngineInput.h>
 
+FVector2D ABall::Pos;
+
+
 ABall::ABall()
 {
 	SetActorLocation({ 600,600});
 	SetActorScale({ 40,40 });
-
+	
 }
 
 ABall::~ABall()
@@ -42,6 +45,8 @@ void ABall::Tick(float _DeltaTime)
 
 	this;
 
+
+
 	//if (3.0f < UEngineInput::GetInst().IsPressTime(VK_LBUTTON))
 	//{
 	//	SetActorLocation(GetActorLocation());
@@ -64,4 +69,5 @@ void ABall::Tick(float _DeltaTime)
 		AddActorLocation(FVector2D::UP * _DeltaTime * Speed);
 	}
 
+	Pos = GetActorLocation();
 }

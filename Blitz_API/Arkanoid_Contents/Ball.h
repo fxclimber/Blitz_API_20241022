@@ -12,7 +12,7 @@ public:
 	void MoveFunction(FVector2D _Dir);
 
 	//void Render()override;
-
+	static FVector2D Pos;
 private:
 	float Speed = 100.0f;
 	FVector2D Location = FVector2D::ZERO;

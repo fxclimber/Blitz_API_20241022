@@ -27,6 +27,9 @@ public:
 protected:
 
 private:
+	void ScreenClear();
+	void DoubleBuffering();
+
 	//게임레벨,메인폰을 만들어 게임을 준비시키는 함수로 만듬
 	template<typename GameModeType, typename MainPawnType>
 	void CreateGameMode()

@@ -44,15 +44,6 @@ void APlayer::Tick(float _DeltaTime)
 	}
 
 
-	//≈∏¿Ã∏” 
-	//AddActorLocation(FVector2D::RIGHT * _DeltaTime * Speed);
-
-	//if (3.0f < UEngineInput::GetInst().IsPressTime(VK_LBUTTON))
-	//{
-	//	ABullet* Ptr = GetWorld()->SpawnActor<ABullet>();
-	//	Ptr->SetActorLocation(GetActorLocation());
-	//}
-
 }
 
 void APlayer::MoveFunction(FVector2D _Dir)

@@ -24,19 +24,23 @@ public:
 	UEngineWindow();
 	~UEngineWindow();
 
-	//delete Function
-	UEngineWindow(const UEngineWindow& _Other) = delete;
-	UEngineWindow(UEngineWindow&& _Other) noexcept = delete;
-	UEngineWindow& operator=(const UEngineWindow& _Other) = delete;
-	UEngineWindow& operator=(UEngineWindow&& _Other)noexcept = delete;
-
 	//void Open();      
 	void Create(std::string_view _TitleName, std::string_view _ClassName = "Default");
 	void Open(std::string_view _TitleName = "Window");
 
-	inline HDC GetBackBuffer()
+	inline FVector2D GetWindowSize() const
 	{
-		return BackBuffer;
+		return WindowSize;
+	}
+
+	inline UEngineWinImage* GetWindowImage() const
+	{
+		return WindowImage;
+	}
+
+	inline UEngineWinImage* GetBackBuffer() const
+	{
+		return BackBufferImage;
 	}
 
 	inline void SetWindowTitle(std::string_view Text)
@@ -53,10 +57,14 @@ protected:
 private:
 	static HINSTANCE hInstance;
 	static std::map<std::string, WNDCLASSEXA> WindowClass;
+
 	//1°³
 	HWND WindowHandle = nullptr;
-	HDC BackBuffer = nullptr;
 
+	FVector2D WindowSize;
+
+	UEngineWinImage* BackBufferImage = nullptr;
+	UEngineWinImage* WindowImage = nullptr;
 
 
 };

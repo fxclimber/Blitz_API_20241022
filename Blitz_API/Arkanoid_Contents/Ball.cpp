@@ -35,27 +35,12 @@ void ABall::MoveFunction(FVector2D _Dir)
 
 }
 
-//void ABall::Render()
-//{
-//	FVector2D LeftTop = Location - Scale.Half();
-//	FVector2D RightBot = Location + Scale.Half();
-//
-//	UEngineWindow& MainWindow = UEngineAPICore::GetCore()->GetMainWindow();
-//	HDC BackHDC = MainWindow.GetBackBuffer();
-//
-//	POINT diamondPoints[4] = {
-//		{ Location.iX(), LeftTop.iY() },            // 상단
-//		{ RightBot.iX(), Location.iY() },           // 오른쪽
-//		{ Location.iX(), RightBot.iY() },           // 하단
-//		{ LeftTop.iX(), Location.iY() }             // 왼쪽
-//	};
-//
-//	// 마름모 그리기
-//	Polygon(BackHDC, diamondPoints, 4);
-//}
 
 void ABall::Tick(float _DeltaTime)
 {
+	GetActorLocation();
+
+	this;
 
 	//if (3.0f < UEngineInput::GetInst().IsPressTime(VK_LBUTTON))
 	//{

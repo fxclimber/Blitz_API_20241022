@@ -2,13 +2,12 @@
 #include <EngineCore/Actor.h>
 
 
-class UPlayMap : public AActor
+class APlayMap : public AActor
 {
 public:
-	UPlayMap();
-	~UPlayMap();
+	APlayMap();
+	~APlayMap();
 
-	void Render() override;
 
 protected:
 

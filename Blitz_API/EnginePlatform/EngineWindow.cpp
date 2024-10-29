@@ -103,6 +103,16 @@ UEngineWindow::UEngineWindow()
 
 UEngineWindow::~UEngineWindow()
 {
+    if (nullptr != WindowImage)
+    {
+        delete WindowImage;
+        WindowImage = nullptr;
+    }
+    if (nullptr != BackBufferImage)
+    {
+        delete BackBufferImage;
+        BackBufferImage = nullptr;
+    }
 }
 
 void UEngineWindow::Create(std::string_view _TitleName, std::string_view _ClassName)
@@ -141,7 +151,13 @@ void UEngineWindow::Create(std::string_view _TitleName, std::string_view _ClassN
     }
 
     //윈도우의 hdc를 여기서 얻음
-    BackBuffer = GetDC(WindowHandle);
+    HDC WindowMainDC = GetDC(WindowHandle);
+    // nullptr이 아니게 만든순간 진짜 윈도우버퍼가 만들어졌다
+    WindowImage = new UEngineWinImage();
+    //
+    WindowImage->Create(WindowMainDC);
+
+
 }
 
 void UEngineWindow::Open(std::string_view _TitleName)
@@ -163,6 +179,20 @@ void UEngineWindow::Open(std::string_view _TitleName)
 
 void UEngineWindow::SetWindowPosAndScale(FVector2D _Pos, FVector2D _Scale)
 {
+    // 윈도우 위치,크기가 달라지면 백버퍼지우고 새로 만들어야한다.
+    if (false == WindowSize.EqualToInt(_Scale))
+    {
+        if (nullptr != BackBufferImage)
+        {
+            delete BackBufferImage;
+            BackBufferImage = nullptr;
+        }
+        BackBufferImage = new UEngineWinImage();
+        BackBufferImage->Create(WindowImage, _Scale);
+    }
+
+    WindowSize = _Scale;
+
     RECT Rc = { 0, 0, _Scale.iX(), _Scale.iY() };
     AdjustWindowRect(&Rc, WS_OVERLAPPEDWINDOW, FALSE);
 

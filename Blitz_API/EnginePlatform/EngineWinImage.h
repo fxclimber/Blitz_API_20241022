@@ -31,7 +31,8 @@ public:
 		ImageDC = _DC;
 	}
 
-	void Create(FVector2D _Scale);
+	void Create(UEngineWinImage* _TargetImage,FVector2D _Scale);
+	void CopyToBit(UEngineWinImage* _TargetImage, const FTransform& _Pos);
 
 
 protected:
@@ -40,7 +41,9 @@ private:
 	// BMP 이미지 파일 그 자체에요
 	// FVector2D Size;
 	HDC ImageDC = nullptr;
-	HBITMAP BitMap = nullptr;
+	HBITMAP hBitMap = nullptr;
+
+	BITMAP Info;
 
 };
 

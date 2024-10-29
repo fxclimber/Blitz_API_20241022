@@ -5,6 +5,8 @@
 #include "Ball.h"
 #include <iostream>
 #include <EnginePlatform/EngineWinImage.h>
+#include "Bullet.h"
+
 
 APlayMap::APlayMap()
 {
@@ -23,15 +25,167 @@ APlayMap::~APlayMap()
 {
 }
 
+//void APlayMap::Tick(float _DeltaTime)
+//{
+//	FVector2D BallPos = ABall::Pos;
+//
+//    FVector2D Location = { 450, 450 };      // 사각형의 왼쪽 위 꼭짓점
+//    FVector2D Scale = { 300, 150 };         // 사각형의 크기 (너비, 높이)
+//    FVector2D P = BallPos;                  // 검사할 점 위치
+//
+//    // 사각형의 중심점 계산
+//    FVector2D Center = { Location.X + Scale.X / 2, Location.Y + Scale.Y / 2 };
+//
+//    // 각 모서리 좌표
+//    FVector2D TopLeft = Location;
+//    FVector2D TopRight = { Location.X + Scale.X, Location.Y };
+//    FVector2D BottomLeft = { Location.X, Location.Y + Scale.Y };
+//    FVector2D BottomRight = { Location.X + Scale.X, Location.Y + Scale.Y };
+//
+//    if (P.Y < Center.Y && P.X >= TopLeft.X && P.X <= TopRight.X)
+//    {
+//        WhereIsBall::UP;
+//    }
+//    // 하단 삼각형 (BottomLeft - Center - BottomRight)
+//    else if (P.Y > Center.Y && P.X >= BottomLeft.X && P.X <= BottomRight.X) 
+//    {
+//        WhereIsBall::DOWN;
+//    }
+//    // 좌측 삼각형 (TopLeft - Center - BottomLeft)
+//    else if (P.X < Center.X && P.Y >= TopLeft.Y && P.Y <= BottomLeft.Y) 
+//    {
+//        WhereIsBall::LEFT;
+//    }
+//    // 우측 삼각형 (TopRight - Center - BottomRight)
+//    else if (P.X > Center.X && P.Y >= TopRight.Y && P.Y <= BottomRight.Y) 
+//    {
+//        WhereIsBall::RIGHT;
+//    }
+//    else 
+//    {
+//        WhereIsBall::NONE;
+//    }
+//
+//    // 은정 로그 - 테스트 볼위치 출력..
+//    UEngineWindow& MainWindow = UEngineAPICore::GetCore()->GetMainWindow();
+//    UEngineWinImage* WindowImage = MainWindow.GetWindowImage();
+//
+//    FVector2D Pos = ABall::Pos;
+//    HDC dc = WindowImage->GetDC();
+//
+//    std::wstring str = L"Pos : (" + std::to_wstring(Pos.X) + L", " + std::to_wstring(Pos.Y) + L")";
+//    TextOutW(dc, 100, 100, str.c_str(), static_cast<int>(str.size()));
+//
+//    switch (P)
+//    {
+//    case WhereIsBall::UP:
+//
+//    }
+//
+//
+//
+//
+//}
+
+
+
+
+void APlayMap::PrintWhereIsBall(FVector2D _Dir)
+{
+    FVector2D Pos = ABall::Pos;
+    ABullet* SpawnBullet = GetWorld()->SpawnActor<ABullet>();
+    SpawnBullet->SetActorLocation(Pos);
+    SpawnBullet->MoveFunction(_Dir);
+}
+
+
+//void APlayMap::Tick(float _DeltaTime) 
+//{
+//    FVector2D BallPos = ABall::Pos;
+//
+//    FVector2D Location = { 450, 450 }; // 사각형의 왼쪽 위 꼭짓점
+//    FVector2D Scale = { 300, 150 }; // 사각형의 크기 (너비, 높이)
+//    FVector2D Center = { Location.X + Scale.X / 2, Location.Y + Scale.Y / 2 };
+//
+//    // 각 모서리 좌표
+//    FVector2D TopLeft = Location;
+//    FVector2D TopRight = { Location.X + Scale.X, Location.Y };
+//    FVector2D BottomLeft = { Location.X, Location.Y + Scale.Y };
+//    FVector2D BottomRight = { Location.X + Scale.X, Location.Y + Scale.Y };
+//
+//    // 위치 판별 함수
+//    auto DetermineTriangle = [&](const FVector2D& P) -> WhereIsBall
+//        {
+//            if (P.Y < Center.Y && P.X >= TopLeft.X && P.X <= TopRight.X) 
+//            {
+//                return WhereIsBall::UP;
+//            }
+//            else if (P.Y > Center.Y && P.X >= BottomLeft.X && P.X <= BottomRight.X) 
+//            {
+//                return WhereIsBall::DOWN;
+//            }
+//            else if (P.X < Center.X && P.Y >= TopLeft.Y && P.Y <= BottomLeft.Y) 
+//            {
+//                return WhereIsBall::LEFT;
+//            }
+//            else if (P.X > Center.X && P.Y >= TopRight.Y && P.Y <= BottomRight.Y) 
+//            {
+//                return WhereIsBall::RIGHT;
+//            }
+//            else 
+//            {
+//                return WhereIsBall::NONE;
+//            }
+//        };
+//
+//    // 점이 속한 삼각형 위치 판별
+//    WhereIsBall position = DetermineTriangle(BallPos);
+//
+//    // 은정 로그 - 테스트 볼위치 출력
+//    UEngineWindow& MainWindow = UEngineAPICore::GetCore()->GetMainWindow();
+//    UEngineWinImage* WindowImage = MainWindow.GetWindowImage();
+//    HDC dc = WindowImage->GetDC();
+//
+//    std::wstring str = L"Pos : (" + std::to_wstring(BallPos.X) + L", " + std::to_wstring(BallPos.Y) + L")";
+//    TextOutW(dc, 100, 100, str.c_str(), static_cast<int>(str.size()));
+//
+//    // 삼각형 위치에 따라 동작 수행
+//    switch (position) {
+//    case WhereIsBall::UP:
+//        // 상단 삼각형에 있을 때의 동작
+//        TextOutW(dc, 600, 600, L"Ball Position UP", 20);
+//        //PrintWhereIsBall(FVector2D::UP);
+//        break;
+//    case WhereIsBall::DOWN:
+//        // 하단 삼각형에 있을 때의 동작
+//        TextOutW(dc, 600, 600, L"Ball Position DOWN", 20);
+//        //PrintWhereIsBall(FVector2D::DOWN);
+//        break;
+//    case WhereIsBall::LEFT:
+//        // 좌측 삼각형에 있을 때의 동작
+//        TextOutW(dc, 600, 600, L"Ball Position LEFT", 20);
+//        //PrintWhereIsBall(FVector2D::LEFT);
+//        break;
+//    case WhereIsBall::RIGHT:
+//        // 우측 삼각형에 있을 때의 동작
+//        TextOutW(dc, 600, 600, L"Ball Position RIGHT", 20);
+//        //PrintWhereIsBall(FVector2D::RIGHT);
+//        break;
+//    case WhereIsBall::NONE:
+//    default:
+//        // 어느 삼각형에도 속하지 않을 때의 동작
+//        TextOutW(dc, 600, 600, str.c_str(), static_cast<int>(str.size()));
+//        break;
+//    }
+//}
+
+
 void APlayMap::Tick(float _DeltaTime)
 {
-	FVector2D BallPos = ABall::Pos;
+    FVector2D BallPos = ABall::Pos;
 
-    FVector2D Location = { 450, 450 };      // 사각형의 왼쪽 위 꼭짓점
-    FVector2D Scale = { 300, 150 };         // 사각형의 크기 (너비, 높이)
-    FVector2D P = BallPos;                  // 검사할 점 위치
-
-    // 사각형의 중심점 계산
+    FVector2D Location = { 450, 450 }; // 사각형의 왼쪽 위 꼭짓점
+    FVector2D Scale = { 300, 150 }; // 사각형의 크기 (너비, 높이)
     FVector2D Center = { Location.X + Scale.X / 2, Location.Y + Scale.Y / 2 };
 
     // 각 모서리 좌표
@@ -40,28 +194,64 @@ void APlayMap::Tick(float _DeltaTime)
     FVector2D BottomLeft = { Location.X, Location.Y + Scale.Y };
     FVector2D BottomRight = { Location.X + Scale.X, Location.Y + Scale.Y };
 
-    if (P.Y < Center.Y && P.X >= TopLeft.X && P.X <= TopRight.X)
-    {
-        WhereIsBall::UP;
-    }
-    // 하단 삼각형 (BottomLeft - Center - BottomRight)
-    else if (P.Y > Center.Y && P.X >= BottomLeft.X && P.X <= BottomRight.X) 
-    {
-        WhereIsBall::DOWN;
-    }
-    // 좌측 삼각형 (TopLeft - Center - BottomLeft)
-    else if (P.X < Center.X && P.Y >= TopLeft.Y && P.Y <= BottomLeft.Y) 
-    {
-        WhereIsBall::LEFT;
-    }
-    // 우측 삼각형 (TopRight - Center - BottomRight)
-    else if (P.X > Center.X && P.Y >= TopRight.Y && P.Y <= BottomRight.Y) 
-    {
-        WhereIsBall::RIGHT;
-    }
-    else 
-    {
-        WhereIsBall::NONE;
-    }
-}
+    // 위치 판별 함수
+    auto DetermineTriangle = [&](const FVector2D& P) -> WhereIsBall
+        {
+            if (P.Y < Center.Y && P.X >= TopLeft.X && P.X <= TopRight.X)
+            {
+                return WhereIsBall::UP;
+            }
+            else if (P.Y > Center.Y && P.X >= BottomLeft.X && P.X <= BottomRight.X)
+            {
+                return WhereIsBall::DOWN;
+            }
+            else if (P.X < Center.X && P.Y >= TopLeft.Y && P.Y <= BottomLeft.Y)
+            {
+                return WhereIsBall::LEFT;
+            }
+            else if (P.X > Center.X && P.Y >= TopRight.Y && P.Y <= BottomRight.Y)
+            {
+                return WhereIsBall::RIGHT;
+            }
+            else
+            {
+                return WhereIsBall::NONE;
+            }
+        };
 
+    // 점이 속한 삼각형 위치 판별
+    WhereIsBall position = DetermineTriangle(BallPos);
+
+    // 은정 로그 - 테스트 볼위치 출력
+    UEngineWindow& MainWindow = UEngineAPICore::GetCore()->GetMainWindow();
+    UEngineWinImage* WindowImage = MainWindow.GetWindowImage();
+    HDC dc = WindowImage->GetDC();  // HDC를 가져옴
+
+    // 화면을 지우기 위한 작업 추가 (여기서 배경 색을 지우는 함수 필요)
+    // 예: FillRect(dc, &rect, (HBRUSH)(COLOR_WINDOW + 1));  // rect는 전체 화면 영역
+
+    std::wstring str = L"Pos : (" + std::to_wstring(BallPos.X) + L", " + std::to_wstring(BallPos.Y) + L")";
+    TextOutW(dc, 100, 100, str.c_str(), static_cast<int>(str.size()));
+
+    // 삼각형 위치에 따라 동작 수행
+    switch (position) {
+    case WhereIsBall::UP:
+        TextOutW(dc, 600, 600, L"Ball Position UP", 20);
+        break;
+    case WhereIsBall::DOWN:
+        TextOutW(dc, 600, 600, L"Ball Position DOWN", 20);
+        break;
+    case WhereIsBall::LEFT:
+        TextOutW(dc, 600, 600, L"Ball Position LEFT", 20);
+        break;
+    case WhereIsBall::RIGHT:
+        TextOutW(dc, 600, 600, L"Ball Position RIGHT", 20);
+        break;
+    case WhereIsBall::NONE:
+    default:
+        TextOutW(dc, 600, 600, str.c_str(), static_cast<int>(str.size()));
+        break;
+    }
+
+   // WindowImage->ReleaseDC(dc);  // HDC를 해제//우리엔진 ReleaseDC없음
+}

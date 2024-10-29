@@ -76,11 +76,5 @@ void ULevel::DoubleBuffering()
 	// 백버퍼에 이미지 준비됬음.
 	BackBufferImage->CopyToBit(WindowImage, Trans);
 
-	// 은정 로그 - 테스트 볼위치 출력..
-	FVector2D Pos = ABall::Pos;
-	HDC dc=WindowImage->GetDC();
-
-	std::wstring str = L"Pos : (" + std::to_wstring(Pos.X) + L", " + std::to_wstring(Pos.Y) + L")";
-	TextOutW(dc, 100, 100, str.c_str(), static_cast<int>(str.size()));
 
 }

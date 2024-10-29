@@ -20,6 +20,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         EndPaint(hWnd, &ps);
     }
     break;
+    //case WM_SIZING:
+    //{
+
+    //}
     case WM_DESTROY:
         --WindowCount;
         break;

@@ -7,8 +7,8 @@
 
 APlayer::APlayer()
 {
-	SetActorLocation({450,450});
-	SetActorScale({300,150});
+	//SetActorLocation({450,450});
+	//SetActorScale({300,150});
 }
 
 APlayer::~APlayer()
@@ -17,6 +17,8 @@ APlayer::~APlayer()
 
 void APlayer::BeginPlay()
 {
+	Super::BeginPlay();
+
 	//기본 크기 설정
 	//바인딩,placeholders (외부인자 사용할때) 사용방식,
 	//UEngineInput::GetInst().BindAction('A', KeyEvent::Press, std::bind(&APlayer::MoveFunction,this,FVector2D::LEFT));
@@ -27,6 +29,7 @@ void APlayer::BeginPlay()
 
 void APlayer::Tick(float _DeltaTime)
 {
+	Super::Tick(_DeltaTime);
 	{
 		//sin테스트
 		//// 시간에 따른 x, y 변화를 offset에 저장

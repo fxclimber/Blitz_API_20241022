@@ -1,6 +1,7 @@
 #pragma once
 #include <EngineBase/EngineMath.h>
 
+
 class AActor
 {
 public:
@@ -46,3 +47,4 @@ private:
 	FTransform Transform;
 };
 
+typedef AActor Super;

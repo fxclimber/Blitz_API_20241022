@@ -19,7 +19,7 @@ public:
 	void PrintWhereIsBall(FVector2D _Dir);
 
 public:
-	int Where = static_cast<int>(WhereIsBall::NONE);
+	//int Where = static_cast<int>(WhereIsBall::NONE);
 
 protected:
 

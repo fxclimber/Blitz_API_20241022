@@ -1,17 +1,30 @@
 #pragma once
+#include <EngineBase/Object.h>
 #include <EngineBase/EngineMath.h>
 
+#include "EngineSprite.h"
 
-class AActor
+// 설명 :
+class AActor : public UObject
 {
 public:
+	typedef AActor Super;
+
 	friend class ULevel;
 
+	// constrcuter destructer
 	AActor();
 	~AActor();
 
-	virtual void BeginPlay(){}
-	virtual void Tick(float _DeltaTime){}
+	// delete Function
+	AActor(const AActor& _Other) = delete;
+	AActor(AActor&& _Other) noexcept = delete;
+	AActor& operator=(const AActor& _Other) = delete;
+	AActor& operator=(AActor&& _Other) noexcept = delete;
+
+	virtual void BeginPlay() {}
+	// 델타타임이란 무엇인가?
+	virtual void Tick(float _DeltaTime) {}
 	virtual void Render();
 
 	class ULevel* GetWorld()
@@ -45,6 +58,12 @@ private:
 	class ULevel* World = nullptr;
 
 	FTransform Transform;
+
+
+public:
+	class UEngineSprite* Sprite = nullptr;
+
+	int CurIndex = 0;
+	void SetSprite(std::string_view _Name, int _CurIndex = 0);
 };
 
-typedef AActor Super;

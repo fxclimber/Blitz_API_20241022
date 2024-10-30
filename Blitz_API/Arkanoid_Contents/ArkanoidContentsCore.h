@@ -8,6 +8,7 @@ public:
 	ArkanoidContentsCore();
 	~ArkanoidContentsCore();
 
+
 protected:
 	void BeginPlay() override;
 	void Tick() override;

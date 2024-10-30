@@ -11,7 +11,7 @@ ABall::ABall()
 {
 	SetActorLocation({ 600,600});
 	SetActorScale({ 40,40 });
-	
+	SetSprite("characters.png");
 }
 
 ABall::~ABall()

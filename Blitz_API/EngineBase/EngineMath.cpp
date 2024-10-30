@@ -1,7 +1,6 @@
 #include "PreCompiledFile.h"
 #include "EngineMath.h"
 
-
 const FVector2D FVector2D::ZERO = { 0, 0 };
 const FVector2D FVector2D::LEFT = { -1, 0 };
 const FVector2D FVector2D::RIGHT = { 1, 0 };

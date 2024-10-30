@@ -33,7 +33,6 @@ void ABullet::MoveFunction(FVector2D _Dir)
 				Y /= len;
 			}
 		}
-
 	};
 
 

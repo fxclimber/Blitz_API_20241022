@@ -17,6 +17,7 @@ private:
 	float Speed = 100.0f;
 	FVector2D Location = FVector2D::ZERO;
 	FVector2D Scale = FVector2D::ZERO;
+	int MySpriteIndex = 0;
 
 
 };

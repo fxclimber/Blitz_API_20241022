@@ -7,8 +7,10 @@
 
 APlayer::APlayer()
 {
-	//SetActorLocation({450,450});
-	//SetActorScale({300,150});
+	SetActorLocation({100,100});
+	SetActorScale({100,100});
+	SetSprite("characters.png");
+
 }
 
 APlayer::~APlayer()
@@ -44,6 +46,13 @@ void APlayer::Tick(float _DeltaTime)
 		//FVector2D newPosition = GetActorLocation() + offset;
 		//SetActorLocation(newPosition);
 
+	}
+
+	//임시, 스프라이트 애니 확인용 , 한번에 한장씩 
+	if (true == UEngineInput::GetInst().IsDown('R'))
+	{
+		SetSprite("characters.png", MySpriteIndex);
+		++MySpriteIndex;
 	}
 
 

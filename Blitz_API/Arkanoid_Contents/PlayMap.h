@@ -24,6 +24,7 @@ protected:
 private:
 	WhereIsBall ballEnum;
 	int MySpriteIndex = 0;
+	class USpriteRenderer* SpriteRenderer;
 
 
 };

@@ -7,13 +7,18 @@
 #include <EnginePlatform/EngineWinImage.h>
 #include "Bullet.h"
 
+#include <EngineCore/SpriteRenderer.h>
+
 
 APlayMap::APlayMap()
 {
 	ballEnum = WhereIsBall::NONE;
 	SetActorLocation({ 450,450 });
 	SetActorScale({ 300, 150 });
-	SetSprite("characters.png");
+
+	SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
+	SpriteRenderer->SetSprite("characters.png");
+	SpriteRenderer->SetComponentScale({ 100, 100 });
 
 }
 

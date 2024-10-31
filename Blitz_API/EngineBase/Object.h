@@ -12,6 +12,22 @@ public:
 	// 가상함수 테이블을 만들 것이므로 왠만하면 자식쪽의 소멸자가 호출안되는 경우는 없을 것이다.
 	virtual ~UObject();
 
+	// delete Function
+	UObject(const UObject& _Other) = delete;
+	UObject(UObject&& _Other) noexcept = delete;
+	UObject& operator=(const UObject& _Other) = delete;
+	UObject& operator=(UObject&& _Other) noexcept = delete;
+
+	std::string GetName() const
+	{
+		return Name;
+	}
+
+	std::string_view GetNameView() const
+	{
+		return Name.c_str();
+	}
+
 	// 이름 지정할때 뭔가 하고 싶으면 오버라이드해.
 	virtual void SetName(std::string_view _Name)
 	{

@@ -3,6 +3,8 @@
 #include <EngineCore/EngineAPICore.h>
 #include <EnginePlatform/EngineWinImage.h>
 #include <EnginePlatform/EngineInput.h>
+#include <EngineCore/SpriteRenderer.h>
+
 
 FVector2D ABall::Pos;
 
@@ -11,7 +13,12 @@ ABall::ABall()
 {
 	SetActorLocation({ 600,600});
 	SetActorScale({ 40,40 });
-	SetSprite("characters.png");
+
+	SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
+	SpriteRenderer->SetSprite("characters.png");
+	SpriteRenderer->SetComponentScale({ 100, 100 });
+
+
 }
 
 ABall::~ABall()
@@ -20,6 +27,8 @@ ABall::~ABall()
 
 void ABall::BeginPlay()
 {
+	Super::BeginPlay();
+
 	//UEngineInput::GetInst().BindAction('A', KeyEvent::Press, std::bind(&ABall::MoveFunction, this, FVector2D::LEFT));
 	//UEngineInput::GetInst().BindAction('D', KeyEvent::Press, std::bind(&ABall::MoveFunction, this, FVector2D::RIGHT));
 	//UEngineInput::GetInst().BindAction('S', KeyEvent::Press, std::bind(&ABall::MoveFunction, this, FVector2D::DOWN));
@@ -47,10 +56,6 @@ void ABall::Tick(float _DeltaTime)
 
 
 
-	//if (3.0f < UEngineInput::GetInst().IsPressTime(VK_LBUTTON))
-	//{
-	//	SetActorLocation(GetActorLocation());
-	//}
 
 		if (true == UEngineInput::GetInst().IsPress('D'))
 	{

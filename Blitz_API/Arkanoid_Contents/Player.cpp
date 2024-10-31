@@ -1,16 +1,17 @@
 #include "PreCompiledFile.h"
 #include "Player.h"
 #include <EngineCore/EngineAPICore.h>
+#include <EngineCore/SpriteRenderer.h>
 #include <EnginePlatform/EngineInput.h>
 #include "Bullet.h"
 
 
 APlayer::APlayer()
 {
-	SetActorLocation({100,100});
-	SetActorScale({100,100});
-	SetSprite("characters.png");
-
+	SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
+	SpriteRenderer->SetSprite("characters.png");
+	SpriteRenderer->SetComponentScale({ 50, 50 });
+	SetActorLocation({400,400});
 }
 
 APlayer::~APlayer()
@@ -27,40 +28,46 @@ void APlayer::BeginPlay()
 	//UEngineInput::GetInst().BindAction('D', KeyEvent::Press, std::bind(&APlayer::MoveFunction,this,FVector2D::RIGHT));
 	//UEngineInput::GetInst().BindAction('S', KeyEvent::Press, std::bind(&APlayer::MoveFunction,this,FVector2D::DOWN));
 	//UEngineInput::GetInst().BindAction('W', KeyEvent::Press, std::bind(&APlayer::MoveFunction,this,FVector2D::UP));
+
+		// 직접 카메라 피봇을 설정해줘야 한다.
+	FVector2D Size = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
+	GetWorld()->SetCameraPivot(Size.Half() * -1.0f);
+
 }
 
 void APlayer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	if (true == UEngineInput::GetInst().IsPress('D'))
 	{
-		//sin테스트
-		//// 시간에 따른 x, y 변화를 offset에 저장
-		//UEngineTimer timer = UEngineTimer();
-
-		//float time = timer.GetDeltaTime();
-		//float waveAmplitude = 100.0f; // 진폭 크기
-
-		//FVector2D offset = FVector2D(waveAmplitude * std::sin(time), waveAmplitude * std::cos(time));
-
-		//// 위치에 offset을 더해 물결 효과 적용
-		//FVector2D newPosition = GetActorLocation() + offset;
-		//SetActorLocation(newPosition);
-
+		SpriteRenderer->ChangeAnimation("Run_Right");
+		AddActorLocation(FVector2D::RIGHT * _DeltaTime * Speed);
+	}
+	if (true == UEngineInput::GetInst().IsPress('A'))
+	{
+		SpriteRenderer->ChangeAnimation("Run_Right");
+		AddActorLocation(FVector2D::LEFT * _DeltaTime * Speed);
+	}
+	if (true == UEngineInput::GetInst().IsPress('S'))
+	{
+		SpriteRenderer->ChangeAnimation("Run_Right");
+		AddActorLocation(FVector2D::DOWN * _DeltaTime * Speed);
+	}
+	if (true == UEngineInput::GetInst().IsPress('W'))
+	{
+		SpriteRenderer->ChangeAnimation("Run_Right");
+		AddActorLocation(FVector2D::UP * _DeltaTime * Speed);
 	}
 
-	//임시, 스프라이트 애니 확인용 , 한번에 한장씩 
-	if (true == UEngineInput::GetInst().IsDown('R'))
+	if (false == UEngineInput::GetInst().IsPress('A') &&
+		false == UEngineInput::GetInst().IsPress('D') &&
+		false == UEngineInput::GetInst().IsPress('W') &&
+		false == UEngineInput::GetInst().IsPress('S'))
 	{
-		SetSprite("characters.png", MySpriteIndex);
-		++MySpriteIndex;
+		SpriteRenderer->ChangeAnimation("Idle_Right");
 	}
 
 
-}
-
-void APlayer::MoveFunction(FVector2D _Dir)
-{
-	float DeltaTime = UEngineAPICore::GetCore()->GetDeltaTime();
-	AddActorLocation(_Dir * DeltaTime * Speed);
 }
 

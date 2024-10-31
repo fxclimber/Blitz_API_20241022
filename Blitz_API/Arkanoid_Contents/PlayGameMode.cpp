@@ -15,6 +15,12 @@ APlayGameMode::~APlayGameMode()
 
 void APlayGameMode::BeginPlay()
 {
-	GetWorld()->SpawnActor<APlayMap>();
-	GetWorld()->SpawnActor<ABall>();
+	GetWorld()->SetCameraToMainPawn(false);
+
+	//GetWorld()->SpawnActor<APlayMap>();
+	//GetWorld()->SpawnActor<ABall>();
+
+
+	//APlayMap* NewActor = GetWorld()->SpawnActor<APlayMap>();
+
 }

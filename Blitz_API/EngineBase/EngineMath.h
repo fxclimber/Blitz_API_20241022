@@ -135,11 +135,6 @@ public:
 		Y += _Other.Y;
 		return *this;
 	}
-
-	//void Normalize()
-	//{
-
-	//}
 };
 
 // 대부분 오브젝트에서 크기와 위치는 한쌍입니다.

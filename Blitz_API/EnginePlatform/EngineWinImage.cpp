@@ -125,6 +125,7 @@ void UEngineWinImage::CopyToBit(UEngineWinImage* _TargetImage, const FTransform&
 
 	// SRCCOPY 카피할때 
 
+	FVector2D Vector;
 }
 
 void UEngineWinImage::CopyToTrans(UEngineWinImage* _TargetImage, const FTransform& _RenderTrans, const FTransform& _LTImageTrans, UColor _Color /*= UColor(255, 0, 255, 255)*/)
@@ -228,18 +229,11 @@ void UEngineWinImage::Load(UEngineWinImage* _TargetImage, std::string_view _Path
 		// 
 		delete pBitMap;
 		delete pImage;
-
-
-		// 내부에 존재하는 bitmap을 꺼낸다.
-		// 윈도우는 결국 모든 이미지를 bitmap으로 본다.
-		// Gdiplus::* pImage = Gdiplus::Image::FromFile(WidePath.c_str());
-
-		int a = 0;
-
-		// 인코딩을 해야 합니다.
-
-
-
+	}
+	else if (".BMP" == UpperExt)
+	{
+		HANDLE NewHandle = LoadImageA(nullptr, _Path.data(), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+		NewBitmap = reinterpret_cast<HBITMAP>(NewHandle);
 	}
 
 	if (nullptr == NewBitmap)

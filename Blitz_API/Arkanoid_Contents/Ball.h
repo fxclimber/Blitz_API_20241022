@@ -19,6 +19,7 @@ private:
 	FVector2D Scale = FVector2D::ZERO;
 	int MySpriteIndex = 0;
 
+	class USpriteRenderer* SpriteRenderer;
 
 };
 

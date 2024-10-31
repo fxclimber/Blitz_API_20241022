@@ -21,12 +21,6 @@ public:
 	UEngineSprite();
 	~UEngineSprite();
 
-	// delete Function
-	UEngineSprite(const UEngineSprite& _Other) = delete;
-	UEngineSprite(UEngineSprite&& _Other) noexcept = delete;
-	UEngineSprite& operator=(const UEngineSprite& _Other) = delete;
-	UEngineSprite& operator=(UEngineSprite&& _Other) noexcept = delete;
-
 	void PushData(UEngineWinImage* Image, const FTransform& _Trans);
 
 	USpriteData GetSpriteData(int _Index = 0)

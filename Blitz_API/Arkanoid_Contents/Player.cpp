@@ -5,12 +5,30 @@
 #include <EnginePlatform/EngineInput.h>
 #include "Bullet.h"
 
+void APlayer::RunSoundPlay()
+{
+	// UEngineDebug::OutPutString("SoundPlay");
+}
 
 APlayer::APlayer()
 {
-	SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
-	SpriteRenderer->SetSprite("characters.png");
-	SpriteRenderer->SetComponentScale({ 50, 50 });
+	{
+		SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
+		SpriteRenderer->SetSprite("Player_Right.png");
+		SpriteRenderer->SetComponentScale({ 300, 300 });
+
+		// SpriteRenderer->CreateAnimation("bomb", 0, 2, 0.1f);
+
+		SpriteRenderer->CreateAnimation("Run_Right", "Player_Right.png", 2, 4, 0.1f);
+		SpriteRenderer->CreateAnimation("Idle_Right", "Player_Right.png", 0, 0, 0.1f);
+
+		SpriteRenderer->ChangeAnimation("Idle_Right");
+
+
+		// SpriteRenderer->CreateAnimation("Test", "Player_Right.png", { 5,  4,  3}, 0.1f);
+		SpriteRenderer->SetAnimationEvent("Run_Right", 2, std::bind(&APlayer::RunSoundPlay, this));
+	}
+
 	SetActorLocation({400,400});
 }
 

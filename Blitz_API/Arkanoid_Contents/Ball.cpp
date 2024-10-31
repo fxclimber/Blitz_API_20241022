@@ -38,15 +38,6 @@ void ABall::BeginPlay()
 
 
 
-void ABall::MoveFunction(FVector2D _Dir)
-{
-
-	float DeltaTime = UEngineAPICore::GetCore()->GetDeltaTime();
-
-	AddActorLocation(_Dir * DeltaTime * Speed);
-
-}
-
 
 void ABall::Tick(float _DeltaTime)
 {
@@ -55,24 +46,4 @@ void ABall::Tick(float _DeltaTime)
 	this;
 
 
-
-
-		if (true == UEngineInput::GetInst().IsPress('D'))
-	{
-		AddActorLocation(FVector2D::RIGHT * _DeltaTime * Speed);
-	}
-	if (true == UEngineInput::GetInst().IsPress('A'))
-	{
-		AddActorLocation(FVector2D::LEFT * _DeltaTime * Speed);
-	}
-	if (true == UEngineInput::GetInst().IsPress('S'))
-	{
-		AddActorLocation(FVector2D::DOWN * _DeltaTime * Speed);
-	}
-	if (true == UEngineInput::GetInst().IsPress('W'))
-	{
-		AddActorLocation(FVector2D::UP * _DeltaTime * Speed);
-	}
-
-	Pos = GetActorLocation();
 }

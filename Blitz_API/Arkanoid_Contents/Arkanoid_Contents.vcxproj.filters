@@ -11,16 +11,46 @@
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Ball.h">
-      <Filter>ContentsObject\Play</Filter>
+      <Filter>ContentsObject\Play_old</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>ContentsObject\Global</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
-      <Filter>ContentsObject\Play</Filter>
+      <Filter>ContentsObject\Play_old</Filter>
     </ClInclude>
     <ClInclude Include="PlayMap.h">
-      <Filter>ContentsObject\Play</Filter>
+      <Filter>ContentsObject\Play_old</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleGameMode.h">
+      <Filter>ContentsObject\GameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentsEnum.h">
+      <Filter>Global</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleLogo.h">
+      <Filter>ContentsObject\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Map_Title.h">
+      <Filter>ContentsObject\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map_Play.h">
+      <Filter>ContentsObject\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map_Ending.h">
+      <Filter>ContentsObject\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Paddle.h">
+      <Filter>Play</Filter>
+    </ClInclude>
+    <ClInclude Include="Puck.h">
+      <Filter>Play</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>Play</Filter>
+    </ClInclude>
+    <ClInclude Include="EndGameMode.h">
+      <Filter>ContentsObject\GameMode</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -34,16 +64,46 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Ball.cpp">
-      <Filter>ContentsObject\Play</Filter>
+      <Filter>ContentsObject\Play_old</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>ContentsObject\Global</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
-      <Filter>ContentsObject\Play</Filter>
+      <Filter>ContentsObject\Play_old</Filter>
     </ClCompile>
     <ClCompile Include="PlayMap.cpp">
-      <Filter>ContentsObject\Play</Filter>
+      <Filter>ContentsObject\Play_old</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleGameMode.cpp">
+      <Filter>ContentsObject\GameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentsEnum.cpp">
+      <Filter>Global</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleLogo.cpp">
+      <Filter>ContentsObject\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Map_Title.cpp">
+      <Filter>ContentsObject\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Map_Play.cpp">
+      <Filter>ContentsObject\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Map_Ending.cpp">
+      <Filter>ContentsObject\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Paddle.cpp">
+      <Filter>Play</Filter>
+    </ClCompile>
+    <ClCompile Include="Puck.cpp">
+      <Filter>Play</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Play</Filter>
+    </ClCompile>
+    <ClCompile Include="EndGameMode.cpp">
+      <Filter>ContentsObject\GameMode</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -62,8 +122,20 @@
     <Filter Include="ContentsObject\Global">
       <UniqueIdentifier>{f7445582-885d-4d6e-946a-2593ed4a2541}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ContentsObject\Play">
+    <Filter Include="Global">
+      <UniqueIdentifier>{f6f5c8ca-b812-4d85-a818-47ad5e4a5239}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ContentsObject\Title">
+      <UniqueIdentifier>{167cab3e-d0a5-4ac0-bf56-3404c6639209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ContentsObject\Map">
+      <UniqueIdentifier>{19111cb6-8dab-470b-8893-2d62e68f837a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ContentsObject\Play_old">
       <UniqueIdentifier>{51df0539-91f8-4c9c-8caa-27dcaec1cd05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Play">
+      <UniqueIdentifier>{f6654f5f-ae54-4cb8-a6a6-034ca1f526fb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

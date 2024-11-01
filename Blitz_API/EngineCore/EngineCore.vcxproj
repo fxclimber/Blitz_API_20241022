@@ -156,6 +156,7 @@
     <ClInclude Include="Actor.h" />
     <ClInclude Include="ActorComponent.h" />
     <ClInclude Include="EngineAPICore.h" />
+    <ClInclude Include="EngineCoreDebug.h" />
     <ClInclude Include="EngineSprite.h" />
     <ClInclude Include="GameMode.h" />
     <ClInclude Include="ImageManager.h" />
@@ -169,6 +170,7 @@
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="ActorComponent.cpp" />
     <ClCompile Include="EngineAPICore.cpp" />
+    <ClCompile Include="EngineCoreDebug.cpp" />
     <ClCompile Include="EngineSprite.cpp" />
     <ClCompile Include="GameMode.cpp" />
     <ClCompile Include="ImageManager.cpp" />

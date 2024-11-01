@@ -1,9 +1,11 @@
 #include "PreCompiledFile.h"
 #include "playGameMode.h"
-//#include <EngineCore/Level.h>
+
+#include <EnginePlatform/EngineInput.h>
+#include <EngineCore/EngineAPICore.h>
+
 #include "Arkanoid_Contents/Ball.h"
-//#include "Player.h"
-#include "PlayMap.h"
+#include "Map_Play.h"
 
 APlayGameMode::APlayGameMode()
 {
@@ -15,12 +17,25 @@ APlayGameMode::~APlayGameMode()
 
 void APlayGameMode::BeginPlay()
 {
+	Super::BeginPlay();
+
 	GetWorld()->SetCameraToMainPawn(false);
 
-	GetWorld()->SpawnActor<APlayMap>();
-	GetWorld()->SpawnActor<ABall>();
+	//GetWorld()->SpawnActor<Map_Play>();
+	//GetWorld()->SpawnActor<ABall>();
 
 
-	//APlayMap* NewActor = GetWorld()->SpawnActor<APlayMap>();
+	Map_Play* NewActor = GetWorld()->SpawnActor<Map_Play>();
+
+}
+
+void APlayGameMode::Tick(float _DeltaTime)
+{
+	Super::Tick(_DeltaTime);
+
+	if (true == UEngineInput::GetInst().IsDown('N'))
+	{
+		UEngineAPICore::GetCore()->OpenLevel("Ending");
+	}
 
 }

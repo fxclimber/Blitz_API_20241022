@@ -12,10 +12,14 @@ Map_Play::Map_Play()
 		SpriteRenderer->SetOrder(ERenderOrder::BACKGROUND);
 		SpriteRenderer->SetSprite("Map_Play001.png");
 
-		FVector2D MapScale = SpriteRenderer->SetSpriteScale(1.0f);
+		FVector2D WinSize = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
+		SpriteRenderer->SetComponentScale(WinSize);
+
+		FVector2D MapScale = SpriteRenderer->SetSpriteScale(3.5f);
 		SpriteRenderer->SetComponentLocation(MapScale.Half());
 	}
-
+	
+	SetActorScale({100,100});
 }
 
 Map_Play::~Map_Play()

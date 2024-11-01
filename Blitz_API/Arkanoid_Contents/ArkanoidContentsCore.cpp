@@ -47,6 +47,7 @@ void ArkanoidContentsCore::BeginPlay()
 	// 자르는 작업 <- 텍스쳐 모두 로딩되야함
 	UImageManager::GetInst().CuttingSprite("Player_Right.png", { 128, 128 });
 
+	// 폴더 낱장 애니
 	{
 		UEngineDirectory BombDir;
 		BombDir.MoveParentToDirectory("Resources");
@@ -55,10 +56,47 @@ void ArkanoidContentsCore::BeginPlay()
 		UImageManager::GetInst().LoadFolder(BombDir.GetPathToString());
 	}
 
+
+	// 폴더- 패들애니 테스트
+	{
+		//paddle_materialize
+		UEngineDirectory paddle_materialize;
+		paddle_materialize.MoveParentToDirectory("Resources");
+		paddle_materialize.Append("paddle_materialize");
+
+		UImageManager::GetInst().LoadFolder(paddle_materialize.GetPathToString());
+	}
+	{
+		//paddle_laser
+		//UEngineDirectory paddle_laser;
+		//paddle_laser.MoveParentToDirectory("Resources");
+		//paddle_laser.Append("paddle_laser");
+
+		//UImageManager::GetInst().LoadFolder(paddle_laser.GetPathToString());
+	}
+	{
+		//powerup_catch
+		//UEngineDirectory powerup_catch;
+		//powerup_catch.MoveParentToDirectory("Resources");
+		//powerup_catch.Append("powerup_catch");
+
+		//UImageManager::GetInst().LoadFolder(powerup_catch.GetPathToString());
+	}
+	{
+		//enemy_molecule
+		//UEngineDirectory enemy_molecule;
+		//enemy_molecule.MoveParentToDirectory("Resources");
+		//enemy_molecule.Append("enemy_molecule");
+
+		//UImageManager::GetInst().LoadFolder(enemy_molecule.GetPathToString());
+	}
+
+
+
 	// 윈도우 
 	UEngineAPICore::GetCore()->GetMainWindow().SetWindowTitle("Blitz_Window");
 	// 이거 꼭 호출해줘야 합니다.
-	UEngineAPICore::GetCore()->GetMainWindow().SetWindowPosAndScale({ 0, 0 }, { 1280, 720 });
+	UEngineAPICore::GetCore()->GetMainWindow().SetWindowPosAndScale({ 0, 0 }, { 800, 900 });
 
 
 	// CreateLevel
@@ -66,7 +104,7 @@ void ArkanoidContentsCore::BeginPlay()
 	UEngineAPICore::GetCore()->CreateLevel<APlayGameMode,Map_Play>("Play");
 	//UEngineAPICore::GetCore()->CreateLevel<ATitleGameMode, AActor>("Title");
 	UEngineAPICore::GetCore()->CreateLevel<ATitleGameMode, Map_Title>("Title");
-	UEngineAPICore::GetCore()->CreateLevel<ATitleGameMode, Map_Ending>("Ending");
+	UEngineAPICore::GetCore()->CreateLevel<AEndGameMode, Map_Ending>("Ending");
 
 	UEngineAPICore::GetCore()->OpenLevel("Title");
 

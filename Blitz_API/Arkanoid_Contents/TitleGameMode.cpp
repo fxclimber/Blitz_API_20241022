@@ -23,7 +23,6 @@ void ATitleGameMode::BeginPlay()
 	Super::BeginPlay();
 	//GetWorld()->SpawnActor<ABall>();
 	Map_Title* NewActor = GetWorld()->SpawnActor<Map_Title>();
-
 	// TitleLogo* NewActor = GetWorld()->SpawnActor<TitleLogo>();
 }
 

@@ -13,7 +13,10 @@ Map_Ending::Map_Ending()
 		SpriteRenderer->SetOrder(ERenderOrder::BACKGROUND);
 		SpriteRenderer->SetSprite("Map_Ending.png");
 
-		FVector2D MapScale = SpriteRenderer->SetSpriteScale(1.0f);
+		FVector2D WinSize = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
+		SpriteRenderer->SetComponentScale(WinSize);
+
+		FVector2D MapScale = SpriteRenderer->SetSpriteScale(3.5f);
 		SpriteRenderer->SetComponentLocation(MapScale.Half());
 	}
 

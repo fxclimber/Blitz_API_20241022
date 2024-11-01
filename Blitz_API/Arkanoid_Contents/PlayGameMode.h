@@ -13,7 +13,8 @@ public:
 protected:
 
 private:
-
-
+	class APlayer* Player = nullptr;
+	class Paddle* paddle = nullptr;
+	class Brick* brick = nullptr;
 };
 

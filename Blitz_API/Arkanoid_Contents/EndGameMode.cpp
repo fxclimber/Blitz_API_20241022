@@ -15,7 +15,7 @@ void AEndGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	GetWorld()->SetCameraToMainPawn(false);
+	//GetWorld()->SetCameraToMainPawn(false);
 	Map_Ending* NewActor = GetWorld()->SpawnActor<Map_Ending>();
 
 

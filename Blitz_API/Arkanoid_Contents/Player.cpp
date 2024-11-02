@@ -4,6 +4,8 @@
 #include <EngineCore/SpriteRenderer.h>
 #include <EnginePlatform/EngineInput.h>
 #include "Bullet.h"
+#include "ContentsEnum.h"
+
 
 void APlayer::RunSoundPlay()
 {
@@ -15,7 +17,9 @@ APlayer::APlayer()
 	{
 		SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 		SpriteRenderer->SetSprite("Player_Right.png");
-		SpriteRenderer->SetComponentScale({ 300, 300 });
+		SpriteRenderer->SetOrder(ERenderOrder::PLAYER);
+
+		SpriteRenderer->SetComponentScale({ 250, 250 });
 
 		// SpriteRenderer->CreateAnimation("bomb", 0, 2, 0.1f);
 
@@ -29,7 +33,7 @@ APlayer::APlayer()
 		SpriteRenderer->SetAnimationEvent("Run_Right", 2, std::bind(&APlayer::RunSoundPlay, this));
 	}
 
-	SetActorLocation({400,400});
+	SetActorLocation({500,1200});
 }
 
 APlayer::~APlayer()

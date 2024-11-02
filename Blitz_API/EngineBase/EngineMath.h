@@ -107,6 +107,15 @@ public:
 		return Result;
 	}
 
+	FVector2D operator/(const FVector2D& Other) const
+	{
+		FVector2D Result;
+		Result.X = X / Other.X;
+		Result.Y = Y / Other.Y;
+		return Result;
+	}
+
+
 
 	// ture가 나오는 
 	bool operator==(FVector2D _Other) const

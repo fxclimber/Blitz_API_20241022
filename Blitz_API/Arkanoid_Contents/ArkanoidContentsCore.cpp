@@ -96,7 +96,7 @@ void ArkanoidContentsCore::BeginPlay()
 	// 윈도우 
 	UEngineAPICore::GetCore()->GetMainWindow().SetWindowTitle("Blitz_Window");
 	// 이거 꼭 호출해줘야 합니다.
-	UEngineAPICore::GetCore()->GetMainWindow().SetWindowPosAndScale({ 0, 0 }, { 800, 900 });
+	UEngineAPICore::GetCore()->GetMainWindow().SetWindowPosAndScale({ 0, 0 }, { 1000, 1300 });
 
 
 	// CreateLevel

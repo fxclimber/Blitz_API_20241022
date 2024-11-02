@@ -15,15 +15,15 @@ Brick::Brick()
 
 	{
 		USpriteRenderer* SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
-		SpriteRenderer->SetOrder(ERenderOrder::BACKGROUND);
+		SpriteRenderer->SetOrder(ERenderOrder::Bricks);
 		SpriteRenderer->SetSprite("brick_blue.png");
 
-		FVector2D WinSize = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
-		SpriteRenderer->SetComponentScale(WinSize);
-		SetActorLocation(WinSize/2);
-
-		FVector2D MapScale = SpriteRenderer->SetSpriteScale(4.0f);
-		SpriteRenderer->SetComponentLocation(MapScale.Half());
+		FVector2D BrickScale = SpriteRenderer->SetSpriteScale(5.0f);
+		SpriteRenderer->SetComponentLocation(BrickScale.Half());
+		//SpriteRenderer->SetComponentLocation({ 0,0 });
+		SetActorLocation({0,0});
+		//FTransform ft = this->GetTransform();
+		//ft.CenterLeftTop();
 	}
 
 }

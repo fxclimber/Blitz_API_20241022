@@ -4,10 +4,7 @@
 #include <EnginePlatform/EngineWinImage.h>
 #include <EnginePlatform/EngineInput.h>
 #include <EngineCore/SpriteRenderer.h>
-
-
-FVector2D ABall::Pos;
-
+#include "ContentsEnum.h"
 
 ABall::ABall()
 {
@@ -15,9 +12,11 @@ ABall::ABall()
 	SetActorScale({ 40,40 });
 
 	SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
-	SpriteRenderer->SetSprite("characters.png");
-	SpriteRenderer->SetComponentScale({ 100, 100 });
+	SpriteRenderer->SetSprite("ball_blue.png");
+	SpriteRenderer->SetComponentScale({ 30, 30 });
+	SpriteRenderer->SetOrder(ERenderOrder::PLAYER);
 
+	Speed = 500.f;
 
 }
 
@@ -36,14 +35,16 @@ void ABall::BeginPlay()
 
 }
 
-
-
-
 void ABall::Tick(float _DeltaTime)
 {
-	GetActorLocation();
-
-	this;
-
 
 }
+
+
+
+void ABall::MoveFunction(FVector2D _Dir)
+{
+	float DeltaTime = UEngineAPICore::GetCore()->GetDeltaTime();
+	AddActorLocation(_Dir * DeltaTime * Speed);
+}
+

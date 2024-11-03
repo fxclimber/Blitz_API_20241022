@@ -34,5 +34,6 @@ private:
 	class APlayer* Player = nullptr;
 	class Paddle* paddle = nullptr;
 	class Brick* brick = nullptr;
+	class ABall* ball = nullptr;
 };
 

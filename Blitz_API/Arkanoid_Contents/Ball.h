@@ -9,15 +9,30 @@ public:
 
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
+
 	void MoveFunction(FVector2D _Dir);
 
-	//void Render()override;
-	static FVector2D Pos;
+	USpriteRenderer* GetRender()
+	{
+		return SpriteRenderer;
+	}
+
+	FVector2D& SetVel(FVector2D _dir)
+	{
+		vel.X *= _dir.X;
+		vel.Y *= _dir.Y;
+		return vel;
+	}
+
+	const FVector2D& GetVel() const
+	{
+		return vel;
+	}
+
 private:
-	float Speed = 100.0f;
-	FVector2D Location = FVector2D::ZERO;
-	FVector2D Scale = FVector2D::ZERO;
+	float Speed = 300.0f;
 	int MySpriteIndex = 0;
+	FVector2D vel = {0.f,0.f};
 
 	class USpriteRenderer* SpriteRenderer;
 

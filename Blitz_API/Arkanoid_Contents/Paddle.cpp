@@ -13,25 +13,25 @@ Paddle::Paddle()
 	SetActorLocation({ 500,1200 });
 
 	{
-		SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();		
-		SpriteRenderer->SetOrder(ERenderOrder::Bricks);
+		//SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();		
+		//SpriteRenderer->SetOrder(ERenderOrder::Bricks);
 
-		SpriteRenderer->CreateAnimation("paddle_materialize", "paddle_materialize", 0, 14, 0.12f);
-		SpriteRenderer->ChangeAnimation("paddle_materialize");
-		SpriteRenderer->SetComponentScale({ 125, 34 });
-		//FVector2D PaddleScale = SpriteRenderer->SetSpriteScale(1.0f);
+		//SpriteRenderer->CreateAnimation("paddle_materialize", "paddle_materialize", 0, 14, 0.12f);
+		//SpriteRenderer->ChangeAnimation("paddle_materialize");
+		//SpriteRenderer->SetComponentScale({ 125, 34 });
+		////FVector2D PaddleScale = SpriteRenderer->SetSpriteScale(1.0f);
 	}
 
 	this;
-	//{
+	{
 
-	//// static sprite
-	//USpriteRenderer* SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
-	//SpriteRenderer->SetOrder(ERenderOrder::Bricks);
-	//SpriteRenderer->SetSprite("paddle.png");
-	//FVector2D PaddleScale = SpriteRenderer->SetSpriteScale(1.0f);
+	// static sprite
+	USpriteRenderer* SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
+	SpriteRenderer->SetOrder(ERenderOrder::Bricks);
+	SpriteRenderer->SetSprite("paddle.png");
+	FVector2D PaddleScale = SpriteRenderer->SetSpriteScale(1.0f);
 
-	//}
+	}
 
 }
 

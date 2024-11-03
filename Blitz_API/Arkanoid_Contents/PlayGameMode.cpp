@@ -12,7 +12,7 @@
 #include "Player.h"
 #include "Paddle.h"
 #include "Brick.h"
-
+#include "Ball.h"
 
 #include <string>
 
@@ -39,11 +39,60 @@ void APlayGameMode::BeginPlay()
 	Player = GetWorld()->SpawnActor<APlayer>();
 	paddle = GetWorld()->SpawnActor<Paddle>();
 	brick = GetWorld()->SpawnActor<Brick>();
+	ball = GetWorld()->SpawnActor<ABall>();
+	ball->SetActorLocation(paddle->GetActorLocation());
+
 }
 
 void APlayGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	//move ball
+	int MaxTop = 122;
+	int MaxBottom = 1250;
+	int MaxLeft = 52;
+	int MaxRight = 948;
+
+	FVector2D ballPos = ball->GetActorLocation();
+	FVector2D ballScale = ball->GetRender()->GetComponentScale();
+	ball->SetVel(FVector2D(0.15f, -1.f));
+
+	FVector2D ballVel = ball->GetVel();
+	const float tolerance = 0.05f + ballScale.X/2;
+	float DeltaTime = UEngineAPICore::GetCore()->GetDeltaTime();
+
+	// 공이 벽 내부에서만 이동하도록 설정
+	if (MaxLeft < ballPos.X && ballPos.X < MaxRight && MaxTop < ballPos.Y && ballPos.Y < MaxBottom) {
+		// 공이 벽에 닿았는지 확인하고 반사 속도를 변경
+		if ((ballPos.X - MaxLeft) < tolerance || (ballPos.X - MaxRight) < tolerance) 
+		{
+			ballVel.X *= -1.0f; // X축 반사
+			ball->AddActorLocation(ballVel * DeltaTime * 500.f);
+
+		}
+		else if( ((static_cast<int>(ballPos.Y)+tolerance)==MaxTop) || (((static_cast<int>(ballPos.Y) + tolerance) == MaxBottom)))
+		{
+			ballVel.Y *= -1.0f; // Y축 반사
+			ball->AddActorLocation(ballVel * DeltaTime * 500.f);
+
+		}
+		else
+		{
+		ball->AddActorLocation(ballVel * DeltaTime * 100.f);
+
+		}
+		//ball->MoveFunction(ballVel); // 공 이동
+
+
+	}
+
+	UEngineDebug::CoreOutPutString("ballVel : " + ballVel.ToString(), { 100,200 });
+
+
+
+
+
 
 	// 디버그 출력 연습
 	FVector2D playerPos = Player->GetTransform().Location;
@@ -123,9 +172,11 @@ void APlayGameMode::Tick(float _DeltaTime)
 			if (false == Player->IsMoving())
 			{
 			Player->MoveFunction(reflected);
+
 			}
 		}
 
+			UEngineDebug::CoreOutPutString("vel : " + reflected.ToString(), FVector2D(100, 640));
 
 
 

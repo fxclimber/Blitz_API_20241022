@@ -85,19 +85,14 @@ void APlayGameMode::Tick(float _DeltaTime)
 
 
 
-	// 디버그 출력 연습
+	// 디버그 출력 
 	FVector2D playerPos = Player->GetTransform().Location;
 	FVector2D brickPos = brick->GetTransform().Location;
-	//FVector2D brickScale = brick->GetTransform().Scale;
-	//USpriteRenderer* SpriteRenderer = brick->GetRender();
 	FVector2D brickSpriteScale = brick->GetRender()->GetComponentScale();
-	//FVector2D WinSize = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
 
 	UEngineDebug::CoreOutPutString("FPS : " + std::to_string(1.0f / _DeltaTime));
 	UEngineDebug::CoreOutPutString("PlayerPos : " + playerPos.ToString(), playerPos+ FVector2D(25, -80));
-	//UEngineDebug::CoreOutPutString("WinSize : " + WinSize.ToString(), { 100,100 });
 	UEngineDebug::CoreOutPutString("brickPos : " + brickPos.ToString(), { 100,130 });
-	//UEngineDebug::CoreOutPutString("brickSpriteScale : " + brickSpriteScale.ToString(), { 100,155 });
 
 
 	// 맵이동 키입력

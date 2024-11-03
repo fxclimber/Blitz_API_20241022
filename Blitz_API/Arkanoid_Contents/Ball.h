@@ -17,17 +17,6 @@ public:
 		return SpriteRenderer;
 	}
 
-	FVector2D& SetVel(FVector2D _dir)
-	{
-		vel.X *= _dir.X;
-		vel.Y *= _dir.Y;
-		return vel;
-	}
-
-	const FVector2D& GetVel() const
-	{
-		return vel;
-	}
 	FVector2D vel = {0.f,0.f};
 
 private:

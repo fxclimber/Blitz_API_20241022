@@ -41,8 +41,8 @@ void APlayGameMode::BeginPlay()
 	brick = GetWorld()->SpawnActor<Brick>();
 	ball = GetWorld()->SpawnActor<ABall>();
 	ball->SetActorLocation((paddle->GetActorLocation()) + ball->GetRender()->GetComponentScale()/2);
-	ballVel = { 0.7f,-1.f };
-	ball->vel = ballVel;
+	FVector2D ballInitVel = { 0.7f,-1.f };
+	ball->vel = ballInitVel;
 }
 
 void APlayGameMode::Tick(float _DeltaTime)
@@ -78,7 +78,7 @@ void APlayGameMode::Tick(float _DeltaTime)
 	// 반사 속도로 공 이동
 	ball->MoveFunction(ball->vel);
 
-	UEngineDebug::CoreOutPutString("ballVel : " + ballVel.ToString(), { 100,200 });
+	UEngineDebug::CoreOutPutString("ballVel : " + ball->vel.ToString(), { 100,200 });
 
 
 

@@ -47,7 +47,7 @@ ULevel::~ULevel()
 }
 
 // 내가 CurLevel 됐을대
-void ULevel::LevelChangeStart()
+void ULevel::LevelChangeStart()//안쓴단다
 {
 	{
 		std::list<AActor*>::iterator StartIter = AllActors.begin();
@@ -64,7 +64,7 @@ void ULevel::LevelChangeStart()
 }
 
 // 나 이제 새로운 레벨로 바뀔거야.
-void ULevel::LevelChangeEnd()
+void ULevel::LevelChangeEnd()//안쓴단다
 {
 	{
 		std::list<AActor*>::iterator StartIter = AllActors.begin();

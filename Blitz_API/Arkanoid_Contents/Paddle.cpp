@@ -45,28 +45,14 @@ void Paddle::BeginPlay()
 
 void Paddle::Tick(float _DeltaTime)
 {
-	//if (true == UEngineInput::GetInst().IsPress('D'))
-	//{
-	//	//SpriteRenderer->ChangeAnimation("paddle_materialize");
-	//	AddActorLocation(FVector2D::RIGHT * _DeltaTime * Speed);
-	//}
-	//if (true == UEngineInput::GetInst().IsPress('A'))
-	//{
-	//	//SpriteRenderer->ChangeAnimation("paddle_laser");
-	//	AddActorLocation(FVector2D::LEFT * _DeltaTime * Speed);
-	//}
-	//if (true == UEngineInput::GetInst().IsPress('S'))
-	//{
-	//	//SpriteRenderer->ChangeAnimation("powerup_catch");
-	//	AddActorLocation(FVector2D::DOWN * _DeltaTime * Speed);
-	//}
-	//if (true == UEngineInput::GetInst().IsPress('W'))
-	//{
-	//	//SpriteRenderer->ChangeAnimation("enemy_molecule");
-	//	AddActorLocation(FVector2D::UP * _DeltaTime * Speed);
-	//}
-
-
+	if (true == UEngineInput::GetInst().IsPress('D'))
+	{
+		AddActorLocation(FVector2D::RIGHT * _DeltaTime * Speed);
+	}
+	if (true == UEngineInput::GetInst().IsPress('A'))
+	{
+		AddActorLocation(FVector2D::LEFT * _DeltaTime * Speed);
+	}
 }
 
 void Paddle::MoveFunction(FVector2D _Dir)

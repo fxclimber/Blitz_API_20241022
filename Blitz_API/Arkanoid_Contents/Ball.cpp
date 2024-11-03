@@ -13,9 +13,10 @@ ABall::ABall()
 
 	SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 	SpriteRenderer->SetSprite("ball_blue.png");
-	SpriteRenderer->SetComponentScale({ 30, 30 });
+	SpriteRenderer->SetComponentScale({ 22, 22 });
 	SpriteRenderer->SetOrder(ERenderOrder::PLAYER);
 
+	//SpriteRenderer->Render()
 	Speed = 500.f;
 
 }

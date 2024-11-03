@@ -25,7 +25,6 @@ public:
 
 	WhereIsBall ballEnum;
 	FVector2D GetVectorForBallPos(WhereIsBall position);
-	FVector2D ballVel = {0,0};
 
 protected:
 

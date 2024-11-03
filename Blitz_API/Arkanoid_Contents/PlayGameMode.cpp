@@ -56,9 +56,10 @@ void APlayGameMode::Tick(float _DeltaTime)
 
 	FVector2D ballPos = ball->GetActorLocation();
 	FVector2D ballScale = ball->GetRender()->GetComponentScale();
-	ball->SetVel(FVector2D(0.15f, -1.f));
-
-	FVector2D ballVel = ball->GetVel();
+	//ball->SetVel(FVector2D(0.15f, -1.f));
+	ball->vel = {0.1f,-1.f};
+	//FVector2D ballVel = ball->GetVel();
+	FVector2D ballVel = ball->vel;
 	const float tolerance = 0.05f + ballScale.X/2;
 	float DeltaTime = UEngineAPICore::GetCore()->GetDeltaTime();
 

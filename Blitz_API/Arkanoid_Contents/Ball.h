@@ -28,11 +28,11 @@ public:
 	{
 		return vel;
 	}
+	FVector2D vel = {0.f,0.f};
 
 private:
 	float Speed = 300.0f;
 	int MySpriteIndex = 0;
-	FVector2D vel = {0.f,0.f};
 
 	class USpriteRenderer* SpriteRenderer;
 

@@ -21,12 +21,11 @@ public:
 	void Tick(float _DeltaTime) override;
 
 	FVector2D Reflect(const FVector2D& incoming, const FVector2D& normal);
-
 	FVector2D reflected = { 0,0 };
 
 	WhereIsBall ballEnum;
-
 	FVector2D GetVectorForBallPos(WhereIsBall position);
+	FVector2D ballVel = {0,0};
 
 protected:
 

@@ -16,9 +16,9 @@
 
 #include <string>
 
-void LogToOutputWindow(const std::string& message) {
-	OutputDebugString(message.c_str());
-}
+//void LogToOutputWindow(const std::string& message) {
+//	OutputDebugString(message.c_str());
+//}
 
 APlayGameMode::APlayGameMode()
 {
@@ -40,15 +40,15 @@ void APlayGameMode::BeginPlay()
 	paddle = GetWorld()->SpawnActor<Paddle>();
 	brick = GetWorld()->SpawnActor<Brick>();
 	ball = GetWorld()->SpawnActor<ABall>();
-	ball->SetActorLocation(paddle->GetActorLocation());
-
+	ball->SetActorLocation((paddle->GetActorLocation()) + ball->GetRender()->GetComponentScale()/2);
+	ballVel = { 0.7f,-1.f };
+	ball->vel = ballVel;
 }
 
 void APlayGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	//move ball
 	int MaxTop = 122;
 	int MaxBottom = 1250;
 	int MaxLeft = 52;
@@ -56,37 +56,27 @@ void APlayGameMode::Tick(float _DeltaTime)
 
 	FVector2D ballPos = ball->GetActorLocation();
 	FVector2D ballScale = ball->GetRender()->GetComponentScale();
-	//ball->SetVel(FVector2D(0.15f, -1.f));
-	ball->vel = {0.1f,-1.f};
-	//FVector2D ballVel = ball->GetVel();
-	FVector2D ballVel = ball->vel;
-	const float tolerance = 0.05f + ballScale.X/2;
+	float tolerance = 0.02f + ballScale.X / 2;
 	float DeltaTime = UEngineAPICore::GetCore()->GetDeltaTime();
 
 	// 공이 벽 내부에서만 이동하도록 설정
-	if (MaxLeft < ballPos.X && ballPos.X < MaxRight && MaxTop < ballPos.Y && ballPos.Y < MaxBottom) {
-		// 공이 벽에 닿았는지 확인하고 반사 속도를 변경
-		if ((ballPos.X - MaxLeft) < tolerance || (ballPos.X - MaxRight) < tolerance) 
+	if (MaxLeft < ballPos.X && ballPos.X < MaxRight && MaxTop < ballPos.Y && ballPos.Y < MaxBottom)
+	{
+		// 왼쪽 및 오른쪽 벽에 닿았는지 확인
+		if (ballPos.X <= MaxLeft + tolerance || ballPos.X >= MaxRight - tolerance)
 		{
-			ballVel.X *= -1.0f; // X축 반사
-			ball->AddActorLocation(ballVel * DeltaTime * 500.f);
-
+			ball->vel.X *= -1.0f; // X축 반전
 		}
-		else if( ((static_cast<int>(ballPos.Y)+tolerance)==MaxTop) || (((static_cast<int>(ballPos.Y) + tolerance) == MaxBottom)))
+
+		// 위쪽 및 아래쪽 벽에 닿았는지 확인
+		if (ballPos.Y <= MaxTop + tolerance || ballPos.Y >= MaxBottom - tolerance)
 		{
-			ballVel.Y *= -1.0f; // Y축 반사
-			ball->AddActorLocation(ballVel * DeltaTime * 500.f);
-
+			ball->vel.Y *= -1.0f; // Y축 반전
 		}
-		else
-		{
-		ball->AddActorLocation(ballVel * DeltaTime * 100.f);
-
-		}
-		//ball->MoveFunction(ballVel); // 공 이동
-
-
 	}
+
+	// 반사 속도로 공 이동
+	ball->MoveFunction(ball->vel);
 
 	UEngineDebug::CoreOutPutString("ballVel : " + ballVel.ToString(), { 100,200 });
 

@@ -74,6 +74,12 @@ public:
 		return;
 	}
 
+	// 벡터의 도트 곱 계산
+	float dot(const FVector2D& other) const
+	{
+		return X * other.X + Y * other.Y;
+	}
+
 	FVector2D operator*(float _Value) const
 	{
 		FVector2D Result;
@@ -114,8 +120,6 @@ public:
 		Result.Y = Y / Other.Y;
 		return Result;
 	}
-
-
 
 	// ture가 나오는 
 	bool operator==(FVector2D _Other) const

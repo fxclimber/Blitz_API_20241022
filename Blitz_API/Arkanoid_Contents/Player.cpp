@@ -12,6 +12,11 @@ void APlayer::RunSoundPlay()
 	// UEngineDebug::OutPutString("SoundPlay");
 }
 
+bool APlayer::IsMoving()
+{
+	return false;
+}
+
 APlayer::APlayer()
 {
 	{
@@ -19,17 +24,12 @@ APlayer::APlayer()
 		SpriteRenderer->SetSprite("Player_Right.png");
 		SpriteRenderer->SetOrder(ERenderOrder::PLAYER);
 
-		SpriteRenderer->SetComponentScale({ 250, 250 });
-
-		// SpriteRenderer->CreateAnimation("bomb", 0, 2, 0.1f);
+		SpriteRenderer->SetComponentScale({ 50, 50 });
 
 		SpriteRenderer->CreateAnimation("Run_Right", "Player_Right.png", 2, 4, 0.1f);
 		SpriteRenderer->CreateAnimation("Idle_Right", "Player_Right.png", 0, 0, 0.1f);
 
 		SpriteRenderer->ChangeAnimation("Idle_Right");
-
-
-		// SpriteRenderer->CreateAnimation("Test", "Player_Right.png", { 5,  4,  3}, 0.1f);
 		SpriteRenderer->SetAnimationEvent("Run_Right", 2, std::bind(&APlayer::RunSoundPlay, this));
 	}
 
@@ -51,7 +51,7 @@ void APlayer::BeginPlay()
 	//UEngineInput::GetInst().BindAction('S', KeyEvent::Press, std::bind(&APlayer::MoveFunction,this,FVector2D::DOWN));
 	//UEngineInput::GetInst().BindAction('W', KeyEvent::Press, std::bind(&APlayer::MoveFunction,this,FVector2D::UP));
 
-		// 직접 카메라 피봇을 설정해줘야 한다.
+	// 직접 카메라 피봇을 설정해줘야 한다.
 	FVector2D Size = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
 	GetWorld()->SetCameraPivot(Size.Half() * -1.0f);
 
@@ -93,3 +93,8 @@ void APlayer::Tick(float _DeltaTime)
 
 }
 
+void APlayer::MoveFunction(FVector2D _Dir)
+{
+	float DeltaTime = UEngineAPICore::GetCore()->GetDeltaTime();
+	AddActorLocation(_Dir * DeltaTime * Speed);
+}

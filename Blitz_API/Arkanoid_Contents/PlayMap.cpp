@@ -12,7 +12,6 @@
 
 APlayMap::APlayMap()
 {
-	ballEnum = WhereIsBall::NONE;
 	SetActorLocation({ 450,450 });
 	SetActorScale({ 300, 150 });
 
@@ -45,48 +44,6 @@ void APlayMap::Tick(float _DeltaTime)
 	TextOutW(dc, 100, 100, str.c_str(), static_cast<int>(str.size()));
 
 
-	// 애초에 사각형에 들어오지 않았다면
-
-	if (0 < DiffPos.X && DiffPos.X < Scale.X && DiffPos.Y >0 && DiffPos.Y < Scale.Y /2)
-	{
-		ballEnum = WhereIsBall::UP;
-	}
-	else if (0 < DiffPos.X && DiffPos.X < Scale.X && DiffPos.Y > Scale.Y/2 && DiffPos.Y < Scale.Y)
-	{
-		ballEnum = WhereIsBall::DOWN;
-	}
-	else if (0 < DiffPos.X && DiffPos.X < Scale.X / 2 && DiffPos.Y >0 && DiffPos.Y < Scale.Y)
-	{
-		ballEnum = WhereIsBall::LEFT;
-	}
-	else if(Scale.X/2 < DiffPos.X && DiffPos.X < Scale.X && DiffPos.Y >0 && DiffPos.Y < Scale.Y)
-	{
-		ballEnum = WhereIsBall::RIGHT;
-	}
-	else
-	{
-		ballEnum = WhereIsBall::NONE;
-	}
-
-
-	switch (ballEnum)
-	{
-	case WhereIsBall::UP:
-		TextOutW(dc, 600, 600, L"Ball Position UP", 20);
-		break;
-	case WhereIsBall::DOWN:
-		TextOutW(dc, 600, 600, L"Ball Position DOWN", 20);
-		break;
-	case WhereIsBall::LEFT:
-		TextOutW(dc, 600, 600, L"Ball Position LEFT", 20);
-		break;
-	case WhereIsBall::RIGHT:
-		TextOutW(dc, 600, 600, L"Ball Position RIGHT", 20);
-		break;
-	default:
-		TextOutW(dc, 600, 600, L"Ball Position NONE", 20);
-		break;
-	}
 
 }
 

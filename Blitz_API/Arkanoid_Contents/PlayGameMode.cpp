@@ -13,6 +13,13 @@
 #include "Paddle.h"
 #include "Brick.h"
 
+
+#include <string>
+
+void LogToOutputWindow(const std::string& message) {
+	OutputDebugString(message.c_str());
+}
+
 APlayGameMode::APlayGameMode()
 {
 }
@@ -26,10 +33,6 @@ void APlayGameMode::BeginPlay()
 	Super::BeginPlay();
 
 	GetWorld()->SetCameraToMainPawn(false);
-
-	//GetWorld()->SpawnActor<Map_Play>();
-	//GetWorld()->SpawnActor<ABall>();
-
 
 	Map_Play* NewActor = GetWorld()->SpawnActor<Map_Play>();
 	//APlayer* Player = GetWorld()->SpawnActor<APlayer>();
@@ -46,6 +49,7 @@ void APlayGameMode::Tick(float _DeltaTime)
 	FVector2D playerPos = Player->GetTransform().Location;
 	FVector2D brickPos = brick->GetTransform().Location;
 	//FVector2D brickScale = brick->GetTransform().Scale;
+	//USpriteRenderer* SpriteRenderer = brick->GetRender();
 	FVector2D brickSpriteScale = brick->GetRender()->GetComponentScale();
 	//FVector2D WinSize = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
 
@@ -53,7 +57,7 @@ void APlayGameMode::Tick(float _DeltaTime)
 	UEngineDebug::CoreOutPutString("PlayerPos : " + playerPos.ToString(), playerPos+ FVector2D(25, -80));
 	//UEngineDebug::CoreOutPutString("WinSize : " + WinSize.ToString(), { 100,100 });
 	UEngineDebug::CoreOutPutString("brickPos : " + brickPos.ToString(), { 100,130 });
-	UEngineDebug::CoreOutPutString("brickSpriteScale : " + brickSpriteScale.ToString(), { 100,155 });
+	//UEngineDebug::CoreOutPutString("brickSpriteScale : " + brickSpriteScale.ToString(), { 100,155 });
 
 
 	// 맵이동 키입력
@@ -63,24 +67,94 @@ void APlayGameMode::Tick(float _DeltaTime)
 	}
 
 	// 벽돌파츠 판정
-	//{
+	{
 		FVector2D HitResult = (playerPos-brickPos) / brickSpriteScale;
+		if (HitResult.X > 0 && HitResult.Y > 0 && HitResult.X < 1 && HitResult.Y < 1)
+		{
+			if(HitResult.X<HitResult.Y)//left,bottom
+			{
+				if (HitResult.X > 1- HitResult.Y)
+				{
+				UEngineDebug::CoreOutPutString("HitResult : BOTTOM" + HitResult.ToString(),FVector2D(100, 600));
+				ballEnum = WhereIsBall::BOTTOM;
+				}
+				else
+				{
+				UEngineDebug::CoreOutPutString("HitResult : LEFT" + HitResult.ToString(), FVector2D(100, 600));
+				ballEnum = WhereIsBall::LEFT;
+				}
+			}
+			else if (HitResult.X > HitResult.Y)//right, top
+			{
+				if (HitResult.Y > 1 - HitResult.X)
+				{
+					UEngineDebug::CoreOutPutString("HitResult : RIGHT" + HitResult.ToString(), FVector2D(100, 600));
+					ballEnum = WhereIsBall::RIGHT;
+				}
+				else
+				{
+					UEngineDebug::CoreOutPutString("HitResult : TOP" + HitResult.ToString(), FVector2D(100, 600));
+					ballEnum = WhereIsBall::TOP;
+				}
+				
+			}
+			else
+			{
+				UEngineDebug::CoreOutPutString("HitResult : " + HitResult.ToString(), FVector2D(100, 600));
+			}
+		}
+		else
+		{
+		UEngineDebug::CoreOutPutString("HitResult : " + HitResult.ToString(), FVector2D(100, 600));
+		}
 
-	//	//if (HitResult.X > 0 && HitResult.X < 0.75 && HitResult.Y >0 && HitResult.Y < 0.75)
-	//	if (HitResult.X > 0 && HitResult.X < 0.75 && HitResult.Y >0 && HitResult.Y < 0.75)
-	//	{
-	//		UEngineDebug::CoreOutPutString("HitResult : LEFT");
-	//	}
-	//	else
-	//	{
-	//		UEngineDebug::CoreOutPutString("HitResult : " + HitResult.ToString(), playerPos + FVector2D(25, -120));
-	//	}
+	}
 
-	//}
-
-	UEngineDebug::CoreOutPutString("HitResult : " + HitResult.ToString(), playerPos + FVector2D(25, -120));
+	//FVector2D incoming(1.0f,-1.0f);
+	FVector2D incoming = GetVectorForBallPos(ballEnum);
+	FVector2D normal(0.0f, 1.0f);
+	reflected = Reflect(incoming, normal);
+	UEngineDebug::CoreOutPutString("reflected : " + reflected.ToString(), FVector2D(100, 640));
 
 
+	//MoveFunction
+		if (true == UEngineInput::GetInst().IsPress('X'))
+		{
+			if (false == Player->IsMoving())
+			{
+			Player->MoveFunction(reflected);
+			}
+		}
 
 
+
+
+}
+
+
+
+
+
+// 반사 벡터 계산 함수
+FVector2D APlayGameMode::Reflect(const FVector2D& incoming, const FVector2D& normal)
+{
+	// 입사 벡터와 법선 벡터의 도트 곱
+	float dotProduct = incoming.dot(normal);
+	return incoming - normal * (2 * dotProduct);
+}
+
+FVector2D APlayGameMode::GetVectorForBallPos(WhereIsBall position)
+{
+	switch (position) {
+	case WhereIsBall::TOP:
+		return FVector2D(0.0f, 1.0f); // 위쪽
+	case WhereIsBall::BOTTOM:
+		return FVector2D(0.0f, -1.0f); // 아래쪽
+	case WhereIsBall::LEFT:
+		return FVector2D(-1.0f, 0.0f); // 왼쪽
+	case WhereIsBall::RIGHT:
+		return FVector2D(1.0f, 0.0f); // 오른쪽
+	default:
+		return FVector2D(0.0f, 0.0f); // NONE 또는 예외처리
+	}
 }

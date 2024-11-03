@@ -14,16 +14,17 @@ Brick::Brick()
 
 
 	{
-		USpriteRenderer* SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
+		SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 		SpriteRenderer->SetOrder(ERenderOrder::Bricks);
-		SpriteRenderer->SetSprite("brick_blue.png");
+		SpriteRenderer->SetSprite("brick_PosBig.png");
 
-		FVector2D BrickScale = SpriteRenderer->SetSpriteScale(5.0f);
+		FVector2D BrickScale = SpriteRenderer->SetSpriteScale(1.0f);
 		SpriteRenderer->SetComponentLocation(BrickScale.Half());
 		//SpriteRenderer->SetComponentLocation({ 0,0 });
-		SetActorLocation({0,0});
+		SetActorLocation({100,600});
 		//FTransform ft = this->GetTransform();
 		//ft.CenterLeftTop();
+
 	}
 
 }

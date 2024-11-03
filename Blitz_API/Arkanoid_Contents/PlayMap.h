@@ -1,14 +1,6 @@
 #pragma once
 #include <EngineCore/Actor.h>
 
-enum class WhereIsBall
-{
-	NONE,
-	UP,
-	DOWN,
-	LEFT,
-	RIGHT,
-};
 
 class APlayMap : public AActor
 {
@@ -22,7 +14,6 @@ public:
 protected:
 
 private:
-	WhereIsBall ballEnum;
 	int MySpriteIndex = 0;
 	class USpriteRenderer* SpriteRenderer;
 

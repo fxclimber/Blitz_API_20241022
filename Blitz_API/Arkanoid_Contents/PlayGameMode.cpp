@@ -176,7 +176,7 @@ void APlayGameMode::Tick(float _DeltaTime)
 FVector2D APlayGameMode::Reflect(const FVector2D& incoming, const FVector2D& normal)
 {
 	// 입사 벡터와 법선 벡터의 도트 곱
-	float dotProduct = incoming.dot(normal);
+	float dotProduct = incoming.Dot(normal);
 	return incoming - normal * (2 * dotProduct);
 }
 

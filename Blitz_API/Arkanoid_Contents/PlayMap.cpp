@@ -13,7 +13,7 @@
 APlayMap::APlayMap()
 {
 	SetActorLocation({ 450,450 });
-	SetActorScale({ 300, 150 });
+	//SetActorScale({ 300, 150 });
 
 	SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 	SpriteRenderer->SetSprite("characters.png");

@@ -23,7 +23,7 @@
 //#endif 
 
 HINSTANCE UEngineWindow::hInstance = nullptr;
-std::map<std::string, WNDCLASSEXA> UEngineWindow::WindowClass;
+std::map<std::string, WNDCLASSEXA> UEngineWindow::WindowClasss;
 int WindowCount = 0;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -68,7 +68,7 @@ void UEngineWindow::EngineWindowInit(HINSTANCE _Instance)
     wcex.hInstance = hInstance;
     wcex.hIcon = nullptr;
     wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
-    wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 2);
+    wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
     wcex.lpszMenuName = nullptr;
     wcex.lpszClassName = "Default";
     wcex.hIconSm = nullptr;
@@ -130,8 +130,8 @@ void UEngineWindow::CreateWindowClass(const WNDCLASSEXA& _Class)
 {
     // 일반적인 맵의 사용법
 
-    std::map<std::string, WNDCLASSEXA>::iterator EndIter = WindowClass.end();
-    std::map<std::string, WNDCLASSEXA>::iterator FindIter = WindowClass.find(std::string(_Class.lpszClassName));
+    std::map<std::string, WNDCLASSEXA>::iterator EndIter = WindowClasss.end();
+    std::map<std::string, WNDCLASSEXA>::iterator FindIter = WindowClasss.find(std::string(_Class.lpszClassName));
 
     // ckw
     if (EndIter != FindIter)
@@ -148,7 +148,7 @@ void UEngineWindow::CreateWindowClass(const WNDCLASSEXA& _Class)
 
     RegisterClassExA(&_Class);
 
-    WindowClass.insert(std::pair{ _Class.lpszClassName, _Class });
+    WindowClasss.insert(std::pair{ _Class.lpszClassName, _Class });
 }
 
 UEngineWindow::UEngineWindow()
@@ -180,7 +180,7 @@ UEngineWindow::~UEngineWindow()
 
 void UEngineWindow::Create(std::string_view _TitleName, std::string_view _ClassName)
 {
-    if (false == WindowClass.contains(_ClassName.data()))
+    if (false == WindowClasss.contains(_ClassName.data()))
     {
         MSGASSERT(std::string(_ClassName) + " 등록하지 않은 클래스로 윈도우창을 만들려고 했습니다");
         return;
@@ -258,4 +258,15 @@ void UEngineWindow::SetWindowPosAndScale(FVector2D _Pos, FVector2D _Scale)
     AdjustWindowRect(&Rc, WS_OVERLAPPEDWINDOW, FALSE);
 
     ::SetWindowPos(WindowHandle, nullptr, _Pos.iX(), _Pos.iY(), Rc.right - Rc.left, Rc.bottom - Rc.top, SWP_NOZORDER);
+}
+
+FVector2D UEngineWindow::GetMousePos()
+{
+    POINT MousePoint;
+
+    GetCursorPos(&MousePoint);
+    // 윈도우창 위치기준으로 마우스 포지션을 
+    ScreenToClient(WindowHandle, &MousePoint);
+
+    return FVector2D(MousePoint.x, MousePoint.y);
 }

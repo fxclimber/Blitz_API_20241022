@@ -9,7 +9,6 @@
 ABall::ABall()
 {
 	SetActorLocation({ 600,600});
-	SetActorScale({ 40,40 });
 
 	SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 	SpriteRenderer->SetSprite("ball_blue.png");

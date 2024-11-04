@@ -74,8 +74,7 @@ public:
 		return;
 	}
 
-	// º¤ÅÍÀÇ µµÆ® °ö °è»ê
-	float dot(const FVector2D& other) const
+	float Dot(const FVector2D& other) const
 	{
 		return X * other.X + Y * other.Y;
 	}

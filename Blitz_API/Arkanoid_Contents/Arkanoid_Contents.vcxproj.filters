@@ -52,6 +52,12 @@
     <ClInclude Include="EndGameMode.h">
       <Filter>ContentsObject\GameMode</Filter>
     </ClInclude>
+    <ClInclude Include="TileMapGameMode.h">
+      <Filter>TileMapRef</Filter>
+    </ClInclude>
+    <ClInclude Include="ATileMap.h">
+      <Filter>TileMapRef</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompiledFile.cpp">
@@ -105,6 +111,12 @@
     <ClCompile Include="EndGameMode.cpp">
       <Filter>ContentsObject\GameMode</Filter>
     </ClCompile>
+    <ClCompile Include="TileMapGameMode.cpp">
+      <Filter>TileMapRef</Filter>
+    </ClCompile>
+    <ClCompile Include="ATileMap.cpp">
+      <Filter>TileMapRef</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ContentsObject">
@@ -136,6 +148,9 @@
     </Filter>
     <Filter Include="Play">
       <UniqueIdentifier>{f6654f5f-ae54-4cb8-a6a6-034ca1f526fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TileMapRef">
+      <UniqueIdentifier>{3c7a4cd1-42f3-4579-8b1a-ee2905f5378c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

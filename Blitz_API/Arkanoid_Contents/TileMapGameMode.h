@@ -11,11 +11,6 @@ public:
 	ATileMapGameMode();
 	~ATileMapGameMode();
 
-	// delete Function
-	ATileMapGameMode(const ATileMapGameMode& _Other) = delete;
-	ATileMapGameMode(ATileMapGameMode&& _Other) noexcept = delete;
-	ATileMapGameMode& operator=(const ATileMapGameMode& _Other) = delete;
-	ATileMapGameMode& operator=(ATileMapGameMode&& _Other) noexcept = delete;
 
 protected:
 	void BeginPlay() override;
@@ -25,6 +20,8 @@ protected:
 private:
 	ATileMap* WallTileMap = nullptr;
 	ATileMap* GroundTileMap = nullptr;
+
+	std::string LoadFileName;
 
 };
 

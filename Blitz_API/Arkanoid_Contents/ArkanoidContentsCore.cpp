@@ -16,6 +16,8 @@
 #include "Map_Title.h"
 #include "Map_Ending.h"
 
+#include "TileMapGameMode.h"
+
 ArkanoidContentsCore::ArkanoidContentsCore()
 {
 }
@@ -66,29 +68,15 @@ void ArkanoidContentsCore::BeginPlay()
 
 		UImageManager::GetInst().LoadFolder(paddle_materialize.GetPathToString());
 	}
-	{
-		//paddle_laser
-		//UEngineDirectory paddle_laser;
-		//paddle_laser.MoveParentToDirectory("Resources");
-		//paddle_laser.Append("paddle_laser");
 
-		//UImageManager::GetInst().LoadFolder(paddle_laser.GetPathToString());
-	}
 	{
-		//powerup_catch
-		//UEngineDirectory powerup_catch;
-		//powerup_catch.MoveParentToDirectory("Resources");
-		//powerup_catch.Append("powerup_catch");
+		// 타일셋 로드
+		UEngineDirectory Dir;
+		Dir.MoveParentToDirectory("Resources//Arkanoid_Items");
+		Dir.Append("Sprite_Static//Brick");
 
-		//UImageManager::GetInst().LoadFolder(powerup_catch.GetPathToString());
-	}
-	{
-		//enemy_molecule
-		//UEngineDirectory enemy_molecule;
-		//enemy_molecule.MoveParentToDirectory("Resources");
-		//enemy_molecule.Append("enemy_molecule");
+		UImageManager::GetInst().LoadFolder(Dir.GetPathToString());
 
-		//UImageManager::GetInst().LoadFolder(enemy_molecule.GetPathToString());
 	}
 
 
@@ -98,13 +86,13 @@ void ArkanoidContentsCore::BeginPlay()
 	// 이거 꼭 호출해줘야 합니다.
 	UEngineAPICore::GetCore()->GetMainWindow().SetWindowPosAndScale({ 0, 0 }, { 1000, 1300 });
 
-
 	// CreateLevel
-	//UEngineAPICore::GetCore()->CreateLevel<APlayGameMode, APlayer>("Play");
 	UEngineAPICore::GetCore()->CreateLevel<APlayGameMode,Map_Play>("Play");
-	//UEngineAPICore::GetCore()->CreateLevel<ATitleGameMode, AActor>("Title");
 	UEngineAPICore::GetCore()->CreateLevel<ATitleGameMode, Map_Title>("Title");
 	UEngineAPICore::GetCore()->CreateLevel<AEndGameMode, Map_Ending>("Ending");
+	//타일맵 테스트용 
+	UEngineAPICore::GetCore()->CreateLevel<ATileMapGameMode, AActor>("Tile");
+
 
 	UEngineAPICore::GetCore()->OpenLevel("Title");
 

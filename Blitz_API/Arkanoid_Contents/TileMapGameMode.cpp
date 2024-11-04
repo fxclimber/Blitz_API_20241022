@@ -22,28 +22,20 @@ void ATileMapGameMode::BeginPlay()
 
 	{
 		GroundTileMap = GetWorld()->SpawnActor<ATileMap>();
-		//GroundTileMap->Create("TileSet", { 100, 100 }, { 32, 32 });
-
-		//for (int y = 0; y < 20; y++)
-		//{
-		//	for (int x = 0; x < 20; x++)
-		//	{
-		//		GroundTileMap->SetTileIndex({ y,x }, 0);
-		//	}
-		//}
 	}
 
 	{
 		WallTileMap = GetWorld()->SpawnActor<ATileMap>();
-		WallTileMap->Create("TileSet", { 100, 100 }, { 32, 32 });
+		WallTileMap->Create("Brick", { 10, 12 }, { 77, 38 });
 
-		for (int y = 0; y < 20; y++)
+		for (int y = 0; y < 12; y++)
 		{
-			for (int x = 0; x < 20; x++)
+			for (int x = 0; x < 10; x++)
 			{
-				WallTileMap->SetTileIndex({ y,x }, { 0, -6 }, { 32, 44 }, 2);
+				WallTileMap->SetTileIndex({ y,x }, { 0, 0 }, { 77, 38 }, 0);
 			}
 		}
+		
 	}
 }
 
@@ -61,15 +53,15 @@ void ATileMapGameMode::Tick(float _DeltaTime)
 	{
 		FVector2D MousePos = UEngineAPICore::GetCore()->GetMainWindow().GetMousePos();
 		Tile* Tile = WallTileMap->GetTileRef(MousePos);
-		if (nullptr != Tile->SpriteRenderer)
+		if (nullptr != Tile && nullptr != Tile->SpriteRenderer)
 		{
-			Tile->SpriteRenderer->Destroy(5.0f);
+			Tile->SpriteRenderer->Destroy(0.0f);
 			Tile->SpriteRenderer = nullptr;
 		}
 	}
 
 
-	if (true == UEngineInput::GetInst().IsPress('R'))
+	if (true == UEngineInput::GetInst().IsPress('O'))
 	{
 		UEngineSerializer _Ser;
 		WallTileMap->Serialize(_Ser);

@@ -85,12 +85,6 @@ public:
 	ATileMap();
 	~ATileMap();
 
-	// delete Function
-	ATileMap(const ATileMap& _Other) = delete;
-	ATileMap(ATileMap&& _Other) noexcept = delete;
-	ATileMap& operator=(const ATileMap& _Other) = delete;
-	ATileMap& operator=(ATileMap&& _Other) noexcept = delete;
-
 	//             100, 100                  64 64 
 	// 타일 이미지는 sprite 1개에서 
 	void Create(std::string_view _Sprite, FIntPoint _Count, FVector2D _TileSize);

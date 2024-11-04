@@ -1,8 +1,17 @@
 #include "PreCompiledFile.h"
 #include "ATileMap.h"
 
+#include <EnginePlatform/EngineInput.h>
+#include <EngineCore/SpriteRenderer.h>
+#include <EngineCore/EngineAPICore.h>
+#include <EngineCore/EngineCoreDebug.h>
+#include "ContentsEnum.h"
+
+
+
 ATileMap::ATileMap()
 {
+
 }
 
 ATileMap::~ATileMap()
@@ -26,7 +35,10 @@ void ATileMap::Create(std::string_view _Sprite, FIntPoint _Count, FVector2D _Til
 	// 타일맵의 핵심 0, 0을 두가지를 정해야 한다.
 	// 타일로서의 0,0이 어디야.
 	// 타일의 위치는 월드로서의 타일맵 * 인덱스가 된다.
-
+	float WinSize = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().X;
+	float AllSpriteWidth = ( _TileSize.X * static_cast<float>(_Count.X))/2;
+	float gap = WinSize - AllSpriteWidth;
+	SetActorLocation({ gap ,100.f });
 
 }
 

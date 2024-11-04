@@ -9,6 +9,7 @@ public:
 	~AEndGameMode();
 
 	void BeginPlay()override;
+	void Tick(float _DeltaTime) override;
 
 
 protected:

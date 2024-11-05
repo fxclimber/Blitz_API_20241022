@@ -30,15 +30,16 @@ public:
 protected:
 
 private:
+	// 사용할 액터들
 	class APlayer* Player = nullptr;
 	class Paddle* paddle = nullptr;
 	class Brick* brick = nullptr;
 	class ABall* ball = nullptr;
-
+	// 타일맵 포인터들
 	ATileMap* WallTileMap = nullptr;
 	ATileMap* GroundTileMap = nullptr;
-
-	std::string LoadFileName;
+	
+	//std::string LoadFileName;
 
 };
 

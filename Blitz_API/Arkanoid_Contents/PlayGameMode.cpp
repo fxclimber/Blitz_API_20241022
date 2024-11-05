@@ -6,6 +6,11 @@
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineCore/EngineCoreDebug.h>
 
+#include "TileMapGameMode.h"
+#include <EngineCore/Level.h>
+#include <EngineBase/EngineFile.h>
+#include <EngineBase/EngineDirectory.h>
+#include <EngineBase/EngineRandom.h>
 
 #include "Arkanoid_Contents/Ball.h"
 #include "Map_Play.h"
@@ -33,6 +38,42 @@ void APlayGameMode::BeginPlay()
 	Super::BeginPlay();
 
 	GetWorld()->SetCameraToMainPawn(false);
+
+	{
+		GroundTileMap = GetWorld()->SpawnActor<ATileMap>();
+	}
+
+	{
+		WallTileMap = GetWorld()->SpawnActor<ATileMap>();
+		WallTileMap->Create("Brick", { 10, 12 }, { 77, 38 });
+
+		for (int y = 0; y < 12; y++)
+		{
+			for (int x = 0; x < 10; x++)
+			{
+				WallTileMap->SetTileIndex({ y,x }, { 0, 0 }, { 77, 38 }, 0);
+			}
+		}
+
+	}
+
+	{
+		UEngineDirectory Dir;
+		if (false == Dir.MoveParentToDirectory("Resources"))
+		{
+			MSGASSERT("리소스 폴더를 찾지 못했습니다.");
+			return;
+		}
+		Dir.Append("Data");
+		std::string SaveFilePath = Dir.GetPathToString() + "\\MapData.Data";
+		UEngineFile NewFile = SaveFilePath;
+		NewFile.FileOpen("rb");
+		UEngineSerializer Ser;
+		NewFile.Read(Ser);
+		WallTileMap->DeSerialize(Ser);
+
+	}
+
 
 	Map_Play* NewActor = GetWorld()->SpawnActor<Map_Play>();
 	//APlayer* Player = GetWorld()->SpawnActor<APlayer>();

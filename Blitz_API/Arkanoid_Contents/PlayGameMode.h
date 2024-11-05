@@ -1,5 +1,6 @@
 #pragma once
 #include <EngineCore/GameMode.h>
+#include "ATileMap.h"
 
 
 enum class WhereIsBall
@@ -33,5 +34,11 @@ private:
 	class Paddle* paddle = nullptr;
 	class Brick* brick = nullptr;
 	class ABall* ball = nullptr;
+
+	ATileMap* WallTileMap = nullptr;
+	ATileMap* GroundTileMap = nullptr;
+
+	std::string LoadFileName;
+
 };
 

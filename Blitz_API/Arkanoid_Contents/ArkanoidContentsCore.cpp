@@ -30,8 +30,10 @@ void ArkanoidContentsCore::BeginPlay()
 {
 	UEngineDirectory Dir;
 
+	std::string ImageRes = "Resources//Images";
+
 	// Resources 파일들의 폴더경로
-	if (false == Dir.MoveParentToDirectory("Resources"))
+	if (false == Dir.MoveParentToDirectory(ImageRes))
 	{
 		MSGASSERT("리소스 폴더를 찾지 못했습니다.");
 		return;
@@ -52,7 +54,7 @@ void ArkanoidContentsCore::BeginPlay()
 	// 폴더 낱장 애니
 	{
 		UEngineDirectory BombDir;
-		BombDir.MoveParentToDirectory("Resources");
+		BombDir.MoveParentToDirectory(ImageRes);
 		BombDir.Append("bomb");
 
 		UImageManager::GetInst().LoadFolder(BombDir.GetPathToString());
@@ -63,7 +65,7 @@ void ArkanoidContentsCore::BeginPlay()
 	{
 		//paddle_materialize
 		UEngineDirectory paddle_materialize;
-		paddle_materialize.MoveParentToDirectory("Resources");
+		paddle_materialize.MoveParentToDirectory(ImageRes);
 		paddle_materialize.Append("paddle_materialize");
 
 		UImageManager::GetInst().LoadFolder(paddle_materialize.GetPathToString());
@@ -72,7 +74,7 @@ void ArkanoidContentsCore::BeginPlay()
 	{
 		// 타일셋 로드
 		UEngineDirectory Dir;
-		Dir.MoveParentToDirectory("Resources//Arkanoid_Items");
+		Dir.MoveParentToDirectory(ImageRes + "//Arkanoid_Items");
 		Dir.Append("Sprite_Static//Brick");
 
 		UImageManager::GetInst().LoadFolder(Dir.GetPathToString());
@@ -94,7 +96,7 @@ void ArkanoidContentsCore::BeginPlay()
 	UEngineAPICore::GetCore()->CreateLevel<ATileMapGameMode, AActor>("Tile");
 
 
-	UEngineAPICore::GetCore()->OpenLevel("Title");
+	UEngineAPICore::GetCore()->OpenLevel("Play");
 
 }
 

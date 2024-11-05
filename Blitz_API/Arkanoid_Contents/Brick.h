@@ -2,7 +2,6 @@
 #include <EngineCore/Actor.h>
 
 
-
 class Brick : public AActor
 {
 

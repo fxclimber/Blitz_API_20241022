@@ -15,9 +15,7 @@ ABall::ABall()
 	SpriteRenderer->SetComponentScale({ 22, 22 });
 	SpriteRenderer->SetOrder(ERenderOrder::PLAYER);
 
-	//SpriteRenderer->Render()
 	Speed = 500.f;
-
 }
 
 ABall::~ABall()
@@ -27,19 +25,12 @@ ABall::~ABall()
 void ABall::BeginPlay()
 {
 	Super::BeginPlay();
-
-	//UEngineInput::GetInst().BindAction('A', KeyEvent::Press, std::bind(&ABall::MoveFunction, this, FVector2D::LEFT));
-	//UEngineInput::GetInst().BindAction('D', KeyEvent::Press, std::bind(&ABall::MoveFunction, this, FVector2D::RIGHT));
-	//UEngineInput::GetInst().BindAction('S', KeyEvent::Press, std::bind(&ABall::MoveFunction, this, FVector2D::DOWN));
-	//UEngineInput::GetInst().BindAction('W', KeyEvent::Press, std::bind(&ABall::MoveFunction, this, FVector2D::UP));
-
 }
 
 void ABall::Tick(float _DeltaTime)
 {
 
 }
-
 
 
 void ABall::MoveFunction(FVector2D _Dir)

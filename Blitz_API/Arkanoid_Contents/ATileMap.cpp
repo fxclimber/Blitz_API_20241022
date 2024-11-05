@@ -144,7 +144,7 @@ void ATileMap::SetTileIndex(FIntPoint _Index, FVector2D _Pivot, FVector2D _Sprit
 
 
 
-Tile* ATileMap::GetTileRef(FVector2D _Location)
+Brick* ATileMap::GetTileRef(FVector2D _Location)
 {
 	FIntPoint Point = LocationToIndex(_Location);
 
@@ -152,7 +152,7 @@ Tile* ATileMap::GetTileRef(FVector2D _Location)
 }
 
 // 타일을 내가 직접 이걸로 얻어와서 변형시키면 된다.
-Tile* ATileMap::GetTileRef(FIntPoint _Index)
+Brick* ATileMap::GetTileRef(FIntPoint _Index)
 {
 	if (true == IsIndexOver(_Index))
 	{

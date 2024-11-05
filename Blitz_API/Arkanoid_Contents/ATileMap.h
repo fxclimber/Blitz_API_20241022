@@ -98,8 +98,8 @@ public:
 	void SetTileIndex(FIntPoint _Index, int _SpriteIndex);
 	void SetTileIndex(FIntPoint _Index, FVector2D _Pivot, FVector2D _SpriteScale, int _SpriteIndex);
 
-	Tile* GetTileRef(FIntPoint _Index);
-	Tile* GetTileRef(FVector2D _Location);
+	Brick* GetTileRef(FIntPoint _Index);
+	Brick* GetTileRef(FVector2D _Location);
 
 	FVector2D IndexToTileLocation(FIntPoint _Index);
 

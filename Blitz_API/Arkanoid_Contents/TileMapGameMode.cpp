@@ -81,7 +81,7 @@ void ATileMapGameMode::Tick(float _DeltaTime)
 	if (true == UEngineInput::GetInst().IsPress(VK_RBUTTON))
 	{
 		FVector2D MousePos = UEngineAPICore::GetCore()->GetMainWindow().GetMousePos();
-		Tile* Tile = WallTileMap->GetTileRef(MousePos);
+		Brick* Tile = WallTileMap->GetTileRef(MousePos);
 		if (nullptr != Tile && nullptr != Tile->SpriteRenderer)
 		{
 			Tile->SpriteRenderer->Destroy(0.0f);

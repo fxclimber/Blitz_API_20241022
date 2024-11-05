@@ -134,7 +134,7 @@ private:
 	FIntPoint TileCount;
 	std::string SpriteName;
 	FVector2D TileSize;
-	std::vector<std::vector<Brick>> AllTiles;
+	std::vector<std::vector<Tile>> AllTiles;
 };
 
 

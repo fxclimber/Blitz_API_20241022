@@ -82,48 +82,72 @@ void APlayGameMode::BeginPlay()
 
 	ball = GetWorld()->SpawnActor<ABall>();
 	ball->SetActorLocation((paddle->GetActorLocation()) + ball->GetRender()->GetComponentScale()/2);
-	FVector2D ballInitVel = { 0.7f,-1.f };
-	ball->vel = ballInitVel;
+	//FVector2D ballInitVel = { 0.7f,-1.f };
+	//ball->vel = ballInitVel;
 }
 
 void APlayGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	// 4. 볼 반사로직 
-	// 4-1. 볼의 이동 경계값
-	int MaxTop = 122;
-	int MaxBottom = 1250;
-	int MaxLeft = 52;
-	int MaxRight = 948;
-	// 4-2. 볼의 위치,크기,경계에 닿았을때의 오차, 델타타임
-	FVector2D ballPos = ball->GetActorLocation();
-	FVector2D ballScale = ball->GetRender()->GetComponentScale();
-	float tolerance = 0.02f + ballScale.X / 2;
-	float DeltaTime = UEngineAPICore::GetCore()->GetDeltaTime();
-	// 4-3. 볼이 벽 내부에서만 이동하도록 설정
-	if (MaxLeft < ballPos.X && ballPos.X < MaxRight && MaxTop < ballPos.Y && ballPos.Y < MaxBottom)
-	{
-		// 왼쪽 및 오른쪽 벽에 닿았는지 확인
-		if (ballPos.X <= MaxLeft + tolerance || ballPos.X >= MaxRight - tolerance)
-		{
-			ball->vel.X *= -1.0f; // X축 반전
-		}
-		// 위쪽 및 아래쪽 벽에 닿았는지 확인
-		if (ballPos.Y <= MaxTop + tolerance || ballPos.Y >= MaxBottom - tolerance)
-		{
-			ball->vel.Y *= -1.0f; // Y축 반전
-		}
+	ball->Tick(_DeltaTime); // 공의 이동 및 반사 로직
+
+	// 충돌 검사 및 반사 처리
+	FVector2D normal = brick->CheckCollision(Player->GetTransform().Location, ball->GetRender()->GetComponentScale());
+	if (normal != FVector2D(0.0f, 0.0f)) {
+		ball->Reflect(normal);
 	}
+
+	// 디버그 출력 등 나머지 로직 유지
+
+
+
+
+
+
+	// 4. 볼 반사로직 
+	//{
+	//// 4-1. 볼의 이동 경계값
+	//int MaxTop = 122;
+	//int MaxBottom = 1250;
+	//int MaxLeft = 52;
+	//int MaxRight = 948;
+	//// 4-2. 볼의 위치,크기,경계에 닿았을때의 오차, 델타타임
+	//FVector2D ballPos = ball->GetActorLocation();
+	//FVector2D ballScale = ball->GetRender()->GetComponentScale();
+	//float tolerance = 0.02f + ballScale.X / 2;
+	//float DeltaTime = UEngineAPICore::GetCore()->GetDeltaTime();
+	//// 4-3. 볼이 벽 내부에서만 이동하도록 설정
+	//if (MaxLeft < ballPos.X && ballPos.X < MaxRight && MaxTop < ballPos.Y && ballPos.Y < MaxBottom)
+	//{
+	//	// 왼쪽 및 오른쪽 벽에 닿았는지 확인
+	//	if (ballPos.X <= MaxLeft + tolerance || ballPos.X >= MaxRight - tolerance)
+	//	{
+	//		ball->vel.X *= -1.0f; // X축 반전
+	//	}
+	//	// 위쪽 및 아래쪽 벽에 닿았는지 확인
+	//	if (ballPos.Y <= MaxTop + tolerance || ballPos.Y >= MaxBottom - tolerance)
+	//	{
+	//		ball->vel.Y *= -1.0f; // Y축 반전
+	//	}
+	//}
+
+	//}
 	// 4-4. 볼 이동?? 
-	ball->MoveFunction(ball->vel);
-	UEngineDebug::CoreOutPutString("ballVel : " + ball->vel.ToString(), { 100,200 });// 4-5. 볼 속도로그
+	//{
+	//ball->MoveFunction(ball->vel);
+	//UEngineDebug::CoreOutPutString("ballVel : " + ball->vel.ToString(), { 100,200 });// 4-5. 볼 속도로그
+
+	//}
 
 	// 4-5. 반사속도로 볼 이동?? 
-	FVector2D incoming = GetVectorForBallPos(ballEnum);
-	FVector2D normal(0.0f, 1.0f);
-	reflected = Reflect(incoming, normal);
-	UEngineDebug::CoreOutPutString("reflected : " + reflected.ToString(), FVector2D(100, 640));
+	//{
+	//FVector2D incoming = GetVectorForBallPos(ballEnum);
+	//FVector2D normal(0.0f, 1.0f);
+	//reflected = Reflect(incoming, normal);
+	//UEngineDebug::CoreOutPutString("reflected : " + reflected.ToString(), FVector2D(100, 640));
+
+	//}
 
 
 	// 5.필요정보-디버그 출력 
@@ -137,48 +161,48 @@ void APlayGameMode::Tick(float _DeltaTime)
 
 	// 6. "플레이어-벽돌"의 충돌 판정 로직
 	// 6-1. 벽돌파츠 판정
-	{
-		FVector2D HitResult = (playerPos-brickPos) / brickSpriteScale;
-		if (HitResult.X > 0 && HitResult.Y > 0 && HitResult.X < 1 && HitResult.Y < 1)
-		{
-			if(HitResult.X<HitResult.Y)//left,bottom
-			{
-				if (HitResult.X > 1- HitResult.Y)
-				{
-				UEngineDebug::CoreOutPutString("HitResult : BOTTOM" + HitResult.ToString(),FVector2D(100, 600));
-				ballEnum = WhereIsBall::BOTTOM;
-				}
-				else
-				{
-				UEngineDebug::CoreOutPutString("HitResult : LEFT" + HitResult.ToString(), FVector2D(100, 600));
-				ballEnum = WhereIsBall::LEFT;
-				}
-			}
-			else if (HitResult.X > HitResult.Y)//right, top
-			{
-				if (HitResult.Y > 1 - HitResult.X)
-				{
-					UEngineDebug::CoreOutPutString("HitResult : RIGHT" + HitResult.ToString(), FVector2D(100, 600));
-					ballEnum = WhereIsBall::RIGHT;
-				}
-				else
-				{
-					UEngineDebug::CoreOutPutString("HitResult : TOP" + HitResult.ToString(), FVector2D(100, 600));
-					ballEnum = WhereIsBall::TOP;
-				}
-				
-			}
-			else
-			{
-				UEngineDebug::CoreOutPutString("HitResult : " + HitResult.ToString(), FVector2D(100, 600));
-			}
-		}
-		else
-		{
-		UEngineDebug::CoreOutPutString("HitResult : " + HitResult.ToString(), FVector2D(100, 600));
-		}
+	//{
+	//	FVector2D HitResult = (playerPos-brickPos) / brickSpriteScale;
+	//	if (HitResult.X > 0 && HitResult.Y > 0 && HitResult.X < 1 && HitResult.Y < 1)
+	//	{
+	//		if(HitResult.X<HitResult.Y)//left,bottom
+	//		{
+	//			if (HitResult.X > 1- HitResult.Y)
+	//			{
+	//			UEngineDebug::CoreOutPutString("HitResult : BOTTOM" + HitResult.ToString(),FVector2D(100, 600));
+	//			ballEnum = WhereIsBall::BOTTOM;
+	//			}
+	//			else
+	//			{
+	//			UEngineDebug::CoreOutPutString("HitResult : LEFT" + HitResult.ToString(), FVector2D(100, 600));
+	//			ballEnum = WhereIsBall::LEFT;
+	//			}
+	//		}
+	//		else if (HitResult.X > HitResult.Y)//right, top
+	//		{
+	//			if (HitResult.Y > 1 - HitResult.X)
+	//			{
+	//				UEngineDebug::CoreOutPutString("HitResult : RIGHT" + HitResult.ToString(), FVector2D(100, 600));
+	//				ballEnum = WhereIsBall::RIGHT;
+	//			}
+	//			else
+	//			{
+	//				UEngineDebug::CoreOutPutString("HitResult : TOP" + HitResult.ToString(), FVector2D(100, 600));
+	//				ballEnum = WhereIsBall::TOP;
+	//			}
+	//			
+	//		}
+	//		else
+	//		{
+	//			UEngineDebug::CoreOutPutString("HitResult : " + HitResult.ToString(), FVector2D(100, 600));
+	//		}
+	//	}
+	//	else
+	//	{
+	//	UEngineDebug::CoreOutPutString("HitResult : " + HitResult.ToString(), FVector2D(100, 600));
+	//	}
 
-	}
+	//}
 
 	// 맵이동 키입력
 	if (true == UEngineInput::GetInst().IsDown('R'))
@@ -189,26 +213,26 @@ void APlayGameMode::Tick(float _DeltaTime)
 
 
 // 4-6. 볼의 반사벡터 계산함수
-FVector2D APlayGameMode::Reflect(const FVector2D& incoming, const FVector2D& normal)
-{
-	// 입사벡터와 법선벡터의 도트곱
-	float dotProduct = incoming.Dot(normal);
-	return incoming - normal * (2 * dotProduct);
-}
+//FVector2D APlayGameMode::Reflect(const FVector2D& incoming, const FVector2D& normal)
+//{
+//	// 입사벡터와 법선벡터의 도트곱
+//	float dotProduct = incoming.Dot(normal);
+//	return incoming - normal * (2 * dotProduct);
+//}
 
 // 6-2. 벽돌의 충돌위치 결과 이넘들
-FVector2D APlayGameMode::GetVectorForBallPos(WhereIsBall position)
-{
-	switch (position) {
-	case WhereIsBall::TOP:
-		return FVector2D(0.0f, 1.0f); // 위쪽
-	case WhereIsBall::BOTTOM:
-		return FVector2D(0.0f, -1.0f); // 아래쪽
-	case WhereIsBall::LEFT:
-		return FVector2D(-1.0f, 0.0f); // 왼쪽
-	case WhereIsBall::RIGHT:
-		return FVector2D(1.0f, 0.0f); // 오른쪽
-	default:
-		return FVector2D(0.0f, 0.0f); // NONE 또는 예외처리
-	}
-}
+//FVector2D APlayGameMode::GetVectorForBallPos(WhereIsBall position)
+//{
+//	switch (position) {
+//	case WhereIsBall::TOP:
+//		return FVector2D(0.0f, 1.0f); // 위쪽
+//	case WhereIsBall::BOTTOM:
+//		return FVector2D(0.0f, -1.0f); // 아래쪽
+//	case WhereIsBall::LEFT:
+//		return FVector2D(-1.0f, 0.0f); // 왼쪽
+//	case WhereIsBall::RIGHT:
+//		return FVector2D(1.0f, 0.0f); // 오른쪽
+//	default:
+//		return FVector2D(0.0f, 0.0f); // NONE 또는 예외처리
+//	}
+//}

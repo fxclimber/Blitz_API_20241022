@@ -22,9 +22,9 @@ APlayer::APlayer()
 	{
 		SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 		SpriteRenderer->SetSprite("Player_Right.png");
-		SpriteRenderer->SetOrder(ERenderOrder::PLAYER);
+		SpriteRenderer->SetOrder(ERenderOrder::UI);
 
-		SpriteRenderer->SetComponentScale({ 50, 50 });
+		SpriteRenderer->SetComponentScale({ 150, 150 });
 
 		SpriteRenderer->CreateAnimation("Run_Right", "Player_Right.png", 2, 4, 0.1f);
 		SpriteRenderer->CreateAnimation("Idle_Right", "Player_Right.png", 0, 0, 0.1f);
@@ -33,7 +33,7 @@ APlayer::APlayer()
 		SpriteRenderer->SetAnimationEvent("Run_Right", 2, std::bind(&APlayer::RunSoundPlay, this));
 	}
 
-	SetActorLocation({500,1200});
+	SetActorLocation({500,850});
 }
 
 APlayer::~APlayer()

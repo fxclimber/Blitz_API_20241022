@@ -2,6 +2,8 @@
 #include <EngineCore/Actor.h>
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineBase/EngineSerializer.h>
+#include "Brick.h"
+
 
 // 그려지는 걸 뭘 기준으로 할거냐.
 // 다수의 이미지가 일정 규격으로 
@@ -132,7 +134,7 @@ private:
 	FIntPoint TileCount;
 	std::string SpriteName;
 	FVector2D TileSize;
-	std::vector<std::vector<Tile>> AllTiles;
+	std::vector<std::vector<Brick>> AllTiles;
 };
 
 

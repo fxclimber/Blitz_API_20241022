@@ -15,7 +15,7 @@ Map_Play::Map_Play()
 		FVector2D WinSize = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
 		SpriteRenderer->SetComponentScale(WinSize);
 
-		FVector2D MapScale = SpriteRenderer->SetSpriteScale(1.0f);
+		FVector2D MapScale = SpriteRenderer->SetSpriteScale(0.8f);
 		SpriteRenderer->SetComponentLocation(MapScale.Half());
 	}
 	

@@ -15,6 +15,7 @@ public:
 	{
 		return SpriteRenderer;
 	}
+	FVector2D CheckCollision(const FVector2D& playerPos, const FVector2D& playerSize);
 
 protected:
 

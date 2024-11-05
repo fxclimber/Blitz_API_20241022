@@ -10,7 +10,7 @@ public:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-	void MoveFunction(FVector2D _Dir);
+	//void MoveFunction(FVector2D _Dir);
 
 	USpriteRenderer* GetRender()
 	{
@@ -19,8 +19,11 @@ public:
 
 	FVector2D vel = {0.f,0.f};
 
+	void MoveFunction(const FVector2D& velocity);
+	void Reflect(const FVector2D& normal);
+
 private:
-	float Speed = 300.0f;
+	float Speed = 1.0f;
 	int MySpriteIndex = 0;
 
 	class USpriteRenderer* SpriteRenderer;

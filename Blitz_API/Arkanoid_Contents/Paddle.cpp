@@ -10,7 +10,7 @@
 
 Paddle::Paddle()
 {
-	SetActorLocation({ 500,1200 });
+	SetActorLocation({ 400,800 });
 
 	{
 		//SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();		

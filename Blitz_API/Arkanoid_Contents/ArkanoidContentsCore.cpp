@@ -17,6 +17,7 @@
 #include "Map_Ending.h"
 
 #include "TileMapGameMode.h"
+#include "BrickEditorGameMode.h"
 
 ArkanoidContentsCore::ArkanoidContentsCore()
 {
@@ -93,7 +94,8 @@ void ArkanoidContentsCore::BeginPlay()
 	UEngineAPICore::GetCore()->CreateLevel<ATitleGameMode, Map_Title>("Title");
 	UEngineAPICore::GetCore()->CreateLevel<AEndGameMode, Map_Ending>("Ending");
 	//타일맵 테스트용 
-	UEngineAPICore::GetCore()->CreateLevel<ATileMapGameMode, AActor>("Tile");
+	//UEngineAPICore::GetCore()->CreateLevel<ATileMapGameMode, AActor>("Tile");
+	UEngineAPICore::GetCore()->CreateLevel<BrickEditorGameMode, AActor>("Tile");
 
 
 	UEngineAPICore::GetCore()->OpenLevel("Play");

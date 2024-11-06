@@ -28,14 +28,6 @@ Brick::~Brick()
 {
 }
 
-void Brick::BeginPlay()
-{
-}
-
-void Brick::Tick(float _DeltaTime)
-{
-}
-
 FVector2D Brick::CheckCollision(const FVector2D& playerPos, const FVector2D& playerSize)
 {
     FVector2D brickPos = GetTransform().Location;

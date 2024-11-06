@@ -37,7 +37,7 @@ private:
 	class ABall* ball = nullptr;
 	// 타일맵 포인터들
 	ATileMap* WallTileMap = nullptr;
-	ATileMap* GroundTileMap = nullptr;
+	//ATileMap* GroundTileMap = nullptr;
 	
 	//std::string LoadFileName;
 

@@ -58,6 +58,12 @@
     <ClInclude Include="ATileMap.h">
       <Filter>TileMapRef</Filter>
     </ClInclude>
+    <ClInclude Include="BrickEditor.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="BrickEditorGameMode.h">
+      <Filter>ContentsObject\GameMode</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompiledFile.cpp">
@@ -117,6 +123,12 @@
     <ClCompile Include="ATileMap.cpp">
       <Filter>TileMapRef</Filter>
     </ClCompile>
+    <ClCompile Include="BrickEditor.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="BrickEditorGameMode.cpp">
+      <Filter>ContentsObject\GameMode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ContentsObject">
@@ -151,6 +163,9 @@
     </Filter>
     <Filter Include="TileMapRef">
       <UniqueIdentifier>{3c7a4cd1-42f3-4579-8b1a-ee2905f5378c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tools">
+      <UniqueIdentifier>{bcd63494-c349-462d-ae3f-b153972cbf3c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

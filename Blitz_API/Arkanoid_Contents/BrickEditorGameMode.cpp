@@ -1,5 +1,6 @@
 #include "PreCompiledFile.h"
-#include "TileMapGameMode.h"
+#include "BrickEditorGameMode.h"
+
 #include <EngineCore/Level.h>
 #include <EnginePlatform/EngineInput.h>
 #include <EngineCore/EngineAPICore.h>
@@ -7,68 +8,60 @@
 #include <EngineBase/EngineDirectory.h>
 #include <EngineBase/EngineRandom.h>
 
-#include "BrickEditor.h"
 
 
-ATileMapGameMode::ATileMapGameMode()
-{
-}
 
-ATileMapGameMode::~ATileMapGameMode()
-{
-}
+
+
 
 // 타일찍고 저장할 수 있는 레벨
-void ATileMapGameMode::BeginPlay()
+void BrickEditorGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 	{
-		GroundTileMap = GetWorld()->SpawnActor<ATileMap>();
+		GroundTileMap = GetWorld()->SpawnActor<BrickEditor>();
 	}
 
 	{
-		WallTileMap = GetWorld()->SpawnActor<ATileMap>();
+		WallTileMap = GetWorld()->SpawnActor<BrickEditor>();
 		WallTileMap->Create("Brick", { 10, 12 }, { 77, 38 });
 
 		for (int y = 0; y < 12; y++)
 		{
 			for (int x = 0; x < 10; x++)
 			{
-				WallTileMap->SetTileIndex({ y,x }, { 0, 0 }, { 77, 38 }, 0);
+				//WallTileMap->SetBrickIndex({ y,x }, { 0, 0 }, { 77, 38 }, 0);
 			}
 		}
-		
+
 	}
 
-	{
-		UEngineDirectory Dir;
+	//{
+	//	UEngineDirectory Dir;
 
-		if (false == Dir.MoveParentToDirectory("Resources"))
-		{
-			MSGASSERT("리소스 폴더를 찾지 못했습니다.");
-			return;
-		}
+	//	if (false == Dir.MoveParentToDirectory("Resources"))
+	//	{
+	//		MSGASSERT("리소스 폴더를 찾지 못했습니다.");
+	//		return;
+	//	}
 
-		Dir.Append("Data");
+	//	Dir.Append("Data");
 
-		std::string SaveFilePath = Dir.GetPathToString() + "\\MapData.Data";
-		UEngineFile NewFile = SaveFilePath;
-		NewFile.FileOpen("rb");
+	//	std::string SaveFilePath = Dir.GetPathToString() + "\\MapData.Data";
+	//	UEngineFile NewFile = SaveFilePath;
+	//	NewFile.FileOpen("rb");
 
-		UEngineSerializer Ser;
-		NewFile.Read(Ser);
+	//	UEngineSerializer Ser;
+	//	NewFile.Read(Ser);
 
 
-		WallTileMap->DeSerialize(Ser);
-	}
-
+	//	WallTileMap->DeSerialize(Ser);
+	//}
 
 }
 
-void ATileMapGameMode::Tick(float _DeltaTime)
+void BrickEditorGameMode::Tick(float _DeltaTime)
 {
-	Super::Tick(_DeltaTime);
-
 	// 맵이동 키입력
 	if (true == UEngineInput::GetInst().IsDown('R'))
 	{
@@ -78,17 +71,18 @@ void ATileMapGameMode::Tick(float _DeltaTime)
 	if (true == UEngineInput::GetInst().IsPress(VK_LBUTTON))
 	{
 		FVector2D MousePos = UEngineAPICore::GetCore()->GetMainWindow().GetMousePos();
-		WallTileMap->SetTileLocation(MousePos, 1);
+		WallTileMap->SetBrickLocation(MousePos, 1);
 	}
 
 	if (true == UEngineInput::GetInst().IsPress(VK_RBUTTON))
 	{
 		FVector2D MousePos = UEngineAPICore::GetCore()->GetMainWindow().GetMousePos();
-		Tile* Tile = WallTileMap->GetTileRef(MousePos);
-		if (nullptr != Tile && nullptr != Tile->SpriteRenderer)
+		ABrick* BaseTile = WallTileMap->GetBrickRef(MousePos);
+
+		if (BaseTile != nullptr && BaseTile->SpriteRenderer != nullptr)
 		{
-			Tile->SpriteRenderer->Destroy(0.0f);
-			Tile->SpriteRenderer = nullptr;
+			BaseTile->SpriteRenderer->Destroy(0.0f);
+			BaseTile->SpriteRenderer = nullptr;
 		}
 	}
 
@@ -114,8 +108,8 @@ void ATileMapGameMode::Tick(float _DeltaTime)
 		WallTileMap->AddActorLocation(FVector2D::DOWN * _DeltaTime * 100.0f);
 	}
 
-	// 직렬화,저장,로드
 
+	// 직렬화,저장,로드
 	if (true == UEngineInput::GetInst().IsPress('M'))
 	{
 		UEngineSerializer _Ser;

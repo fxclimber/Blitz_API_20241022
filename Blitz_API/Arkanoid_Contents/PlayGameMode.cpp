@@ -21,6 +21,7 @@
 
 #include <string>
 
+#include "BrickEditor.h"
 
 APlayGameMode::APlayGameMode()
 {
@@ -39,7 +40,7 @@ void APlayGameMode::BeginPlay()
 
 	// 2. Å¸ÀÏ¸Ê °´Ã¼ ÃÊ±âÈ­
 	{
-		GroundTileMap = GetWorld()->SpawnActor<ATileMap>();
+		//GroundTileMap = GetWorld()->SpawnActor<ATileMap>();
 	}
 
 	{

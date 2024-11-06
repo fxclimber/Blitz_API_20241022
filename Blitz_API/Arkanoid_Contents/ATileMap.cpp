@@ -107,27 +107,15 @@ void ATileMap::SetTileIndex(FIntPoint _Index, FVector2D _Pivot, FVector2D _Sprit
 	}
 
 	// 미리 다 만들지 않고
-	// 지금 
-
-	// SPriteRenderer가 없어.
-	// 아직안만들어졌다는 이야기
-	// 그제서야 스프라이트 랜더러를 만든다.
-
-	// 생성자에서 밖에 못만든다며.
-	// 랜더러를 생성하는거 못한다고 했죠.
-
-	// 시작하자마자 타일을 다 깔아 놓는걸 기준으로 만들고 있다.
+	// 지금 스프라이트 랜더러를 만든다.
 	if (nullptr == AllTiles[_Index.Y][_Index.X].SpriteRenderer)
 	{
 		USpriteRenderer* NewSpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
-		// AllTiles[TileCount.Y][TileCount.X].SpriteRenderer;
 		NewSpriteRenderer->SetComponentScale(TileSize);
 		AllTiles[_Index.Y][_Index.X].SpriteRenderer = NewSpriteRenderer;
 	}
 
-	// 스프라이트를 저장해 놨으므로.
-	// 그 이름으로 세팅해주면 된다.
-
+	// 스프라이트를 저장해 놨으므로.	// 그 이름으로 세팅해주면 된다.
 	USpriteRenderer* FindSprite = AllTiles[_Index.Y][_Index.X].SpriteRenderer;
 	FindSprite->SetSprite(SpriteName, _SpriteIndex);
 

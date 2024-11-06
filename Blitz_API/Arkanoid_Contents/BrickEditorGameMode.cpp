@@ -30,10 +30,9 @@ void BrickEditorGameMode::BeginPlay()
 		{
 			for (int x = 0; x < 10; x++)
 			{
-				//WallTileMap->SetBrickIndex({ y,x }, { 0, 0 }, { 77, 38 }, 0);
+				WallTileMap->SetBrickIndex({ y,x }, { 0, 0 }, { 77, 38 }, 2);
 			}
 		}
-
 	}
 
 	//{

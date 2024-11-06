@@ -137,16 +137,21 @@ ABrick* BrickEditor::GetBrickRef(FIntPoint _Index)
 }
 
 
-
-
-
 void BrickEditor::Serialize(UEngineSerializer& _Ser)
 {
 	_Ser << BrickCount;
 	_Ser << BrickSize;
 	_Ser << SpriteName;
-	_Ser << AllBricks;
 
+	for (const auto& row : AllBricks)
+	{
+		for (const auto& brick : row)
+		{
+			_Ser << brick.Pivot;
+			_Ser << brick.Scale; // 개별 벽돌의 크기 직렬화
+			_Ser << brick.SpriteIndex;
+		}
+	}
 }
 
 void BrickEditor::DeSerialize(UEngineSerializer& _Ser)
@@ -155,21 +160,27 @@ void BrickEditor::DeSerialize(UEngineSerializer& _Ser)
 	_Ser >> BrickSize;
 	_Ser >> SpriteName;
 
-	std::vector<std::vector<ABrick>> LoadTiles;
-	_Ser >> LoadTiles;
-
-	// 데이터만 읽어왔을뿐이지.
-	Create(SpriteName, BrickCount, BrickSize);
-
-	for (int y = 0; y < LoadTiles.size(); y++)
+	AllBricks.resize(BrickCount.Y);
+	for (int y = 0; y < BrickCount.Y; ++y)
 	{
-		for (int x = 0; x < LoadTiles[y].size(); x++)
+		AllBricks[y].resize(BrickCount.X);
+		for (int x = 0; x < BrickCount.X; ++x)
 		{
-			SetBrickIndex({ x, y }, LoadTiles[y][x].Pivot, LoadTiles[y][x].Scale, LoadTiles[y][x].SpriteIndex);
+			_Ser >> AllBricks[y][x].Pivot;
+			_Ser >> AllBricks[y][x].Scale; // 개별 벽돌의 크기 역직렬화
+			_Ser >> AllBricks[y][x].SpriteIndex;
+
+			// 역직렬화된 데이터를 기반으로 SpriteRenderer 설정
+			if (AllBricks[y][x].SpriteRenderer)
+			{
+				FVector2D TileLocation = IndexToBrickLocation({ x, y });
+				AllBricks[y][x].SpriteRenderer->SetComponentLocation(TileLocation + AllBricks[y][x].Scale.Half() + AllBricks[y][x].Pivot);
+				AllBricks[y][x].SpriteRenderer->SetComponentScale(AllBricks[y][x].Scale);
+			}
 		}
 	}
-
 }
+
 
 
 FVector2D BrickEditor::CheckCollision(const FVector2D& playerPos, const FVector2D& playerSize, FIntPoint brickIndex)
@@ -184,9 +195,10 @@ FVector2D BrickEditor::CheckCollision(const FVector2D& playerPos, const FVector2
 	FVector2D brickPos = IndexToBrickLocation(brickIndex);
 	FVector2D brickSize = brick.Scale; // 개별 벽돌의 크기
 
-	UEngineDebug::CoreOutPutString("brickPos" + brickPos.ToString(), { 100, 600 });
-	UEngineDebug::CoreOutPutString("brickSize" + brickSize.ToString(), { 100, 650 });
-
+	// 여러 벽돌의 로그를 출력
+	UEngineDebug::CoreOutPutString("Brick at [" + std::to_string(brickIndex.X) + ", " + std::to_string(brickIndex.Y) + "]", { 100, 500 });
+	UEngineDebug::CoreOutPutString("brickPos: " + brickPos.ToString(), { 100, 520 });
+	UEngineDebug::CoreOutPutString("brickSize: " + brickSize.ToString(), { 100, 540 });
 
 	// 충돌 감지 로직
 	FVector2D HitResult = (playerPos - brickPos) / brickSize;
@@ -215,3 +227,5 @@ FVector2D BrickEditor::CheckCollision(const FVector2D& playerPos, const FVector2
 
 	return FVector2D(0.0f, 0.0f); // 충돌 없음
 }
+
+

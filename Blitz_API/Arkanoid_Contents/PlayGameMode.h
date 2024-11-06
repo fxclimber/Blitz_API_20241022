@@ -2,6 +2,7 @@
 #include <EngineCore/GameMode.h>
 #include "ATileMap.h"
 
+#include "BrickEditor.h"
 
 enum class WhereIsBall
 {
@@ -21,11 +22,11 @@ public:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-	FVector2D Reflect(const FVector2D& incoming, const FVector2D& normal);
+	//FVector2D Reflect(const FVector2D& incoming, const FVector2D& normal);
 	FVector2D reflected = { 0,0 };
 
 	WhereIsBall ballEnum;
-	FVector2D GetVectorForBallPos(WhereIsBall position);
+	//FVector2D GetVectorForBallPos(WhereIsBall position);
 
 protected:
 
@@ -35,8 +36,10 @@ private:
 	class Paddle* paddle = nullptr;
 	class Brick* brick = nullptr;
 	class ABall* ball = nullptr;
+	class BrickEditor* brickEditor = nullptr;
+
 	// 타일맵 포인터들
-	ATileMap* WallTileMap = nullptr;
+	BrickEditor* WallTileMap = nullptr;
 	//ATileMap* GroundTileMap = nullptr;
 	
 	//std::string LoadFileName;

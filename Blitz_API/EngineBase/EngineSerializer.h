@@ -40,6 +40,12 @@ public:
 		Write(&_Data, sizeof(FIntPoint));
 	}
 
+	void operator<<(const FVector2D& _Data)
+	{
+		FVector2D temp = _Data; // const 데이터 복사
+		*this << temp; // 기존 연산자 호출
+	}
+
 	void operator<<(std::string& _Data)
 	{
 		// int하나랑 포인터 하나 들고 있죠?
@@ -69,6 +75,12 @@ public:
 	void operator>>(int& _Data)
 	{
 		Read(&_Data, sizeof(int));
+	}
+
+	void operator<<(const int& _Data)
+	{
+		int temp = _Data; // const 데이터 복사
+		*this << temp; // 기존 연산자 호출
 	}
 
 	void operator>>(bool& _Data)

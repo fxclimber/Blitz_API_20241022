@@ -24,13 +24,13 @@ void BrickEditorGameMode::BeginPlay()
 
 	{
 		WallTileMap = GetWorld()->SpawnActor<BrickEditor>();
-		WallTileMap->Create("Brick", { 10, 12 }, { 77, 38 });
+		WallTileMap->Create("Brick", { 8, 10 }, { 77, 38 });
 
-		for (int y = 0; y < 12; y++)
+		for (int y = 0; y < 10; y++)
 		{
-			for (int x = 0; x < 10; x++)
+			for (int x = 0; x < 8; x++)
 			{
-				//WallTileMap->SetBrickIndex({ y,x }, { 0, 0 }, { 77, 38 }, 0);
+				WallTileMap->SetBrickIndex({ y,x }, { 0, 0 }, { 77, 38 }, 0);
 			}
 		}
 

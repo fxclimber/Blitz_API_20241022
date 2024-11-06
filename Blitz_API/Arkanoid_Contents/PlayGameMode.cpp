@@ -40,21 +40,19 @@ void APlayGameMode::BeginPlay()
 
 	// 2. 타일맵 객체 초기화
 	{
-		//GroundTileMap = GetWorld()->SpawnActor<ATileMap>();
-	}
+		WallTileMap = GetWorld()->SpawnActor<BrickEditor>();
+		WallTileMap->Create("Brick", { 8, 10 }, { 77, 38 });
 
-	{
-		WallTileMap = GetWorld()->SpawnActor<ATileMap>();
-		WallTileMap->Create("Brick", { 10, 12 }, { 77, 38 });
-
-		for (int y = 0; y < 12; y++)
+		for (int y = 0; y < 10; y++)
 		{
-			for (int x = 0; x < 10; x++)
+			for (int x = 0; x < 8; x++)
 			{
-				WallTileMap->SetTileIndex({ y,x }, { 0, 0 }, { 77, 38 }, 0);
+				WallTileMap->SetBrickIndex({ y,x }, { 0, 0 }, { 77, 38 }, 0);
 			}
 		}
+
 	}
+
 	// 3. 타일맵 데이타 로드
 	{
 		UEngineDirectory Dir;
@@ -72,6 +70,18 @@ void APlayGameMode::BeginPlay()
 		WallTileMap->DeSerialize(Ser);
 	}
 
+
+
+
+
+
+
+
+
+
+
+
+
 	// 플레이 게임모드에서 사용할 액터들 스폰
 	// 맵(배경) , 플레이어(임시-본게임에선 삭제예정) , 
 	// [중요] 패들(현재 "플레이어-벽돌충돌위치" 로직을, "볼-벽돌"관계로 변경하고,로직을 벽돌로 옮겨야함), 
@@ -80,6 +90,7 @@ void APlayGameMode::BeginPlay()
 	Player = GetWorld()->SpawnActor<APlayer>();
 	paddle = GetWorld()->SpawnActor<Paddle>();
 	brick = GetWorld()->SpawnActor<Brick>();
+	brickEditor = GetWorld()->SpawnActor<BrickEditor>();
 
 	ball = GetWorld()->SpawnActor<ABall>();
 	ball->SetActorLocation((paddle->GetActorLocation()) + ball->GetRender()->GetComponentScale()/2);
@@ -102,8 +113,11 @@ void APlayGameMode::Tick(float _DeltaTime)
 	// 디버그 출력 등 나머지 로직 유지
 
 
+	//FVector2D BrickColPos = WallTileMap->CheckCollision();
+	FIntPoint brickIndex = { 0,0 };
+	FVector2D playerScale = Player->GetTransform().Scale;
 
-
+	FVector2D collisionResult = WallTileMap->CheckCollision(Player->GetTransform().Location, playerScale, brickIndex);
 
 
 	// 4. 볼 반사로직 

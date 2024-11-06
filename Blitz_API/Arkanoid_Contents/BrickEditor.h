@@ -61,6 +61,7 @@ public:
 	BrickEditor(){}
 	~BrickEditor(){}
 
+
 	//             100, 100                  64 64 
 	// 타일 이미지는 sprite 1개에서 
 	void Create(std::string_view _Sprite, FIntPoint _Count, FVector2D _BrickSize);
@@ -88,7 +89,14 @@ public:
 
 	FVector2D CheckCollision(const FVector2D& playerPos, const FVector2D& playerSize, FIntPoint brickIndex);
 
-
+	FVector2D GetBrickSize()
+	{
+		return BrickSize;
+	}
+	FIntPoint GetBrickCount()
+	{
+		return BrickCount;
+	}
 protected:
 
 private:

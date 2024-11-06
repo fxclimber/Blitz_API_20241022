@@ -13,9 +13,9 @@ Brick::Brick()
 	{
 		SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 		SpriteRenderer->SetOrder(ERenderOrder::Bricks);
-		SpriteRenderer->SetSprite("brick_silver.png");
+		SpriteRenderer->SetSprite("brick_white.png");
 
-		FVector2D BrickScale = SpriteRenderer->SetSpriteScale(1.0f);
+		FVector2D BrickScale = SpriteRenderer->SetSpriteScale(0.85f);
 		SpriteRenderer->SetComponentLocation(BrickScale.Half());
         SpriteRenderer->SetOrder(ERenderOrder::NEW);
 

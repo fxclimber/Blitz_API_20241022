@@ -7,6 +7,8 @@
 #include <EngineCore/EngineCoreDebug.h>
 #include "ContentsEnum.h"
 
+
+
 void BrickEditor::Create(std::string_view _Sprite, FIntPoint _Count, FVector2D _BrickSize)
 {
 	SpriteName = _Sprite;
@@ -24,6 +26,7 @@ void BrickEditor::Create(std::string_view _Sprite, FIntPoint _Count, FVector2D _
 	// 타일로서의 0,0이 어디야.
 	// 타일의 위치는 월드로서의 타일맵 * 인덱스가 된다.
 	float WinSize = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().X;
+	//float WinSize = Globals::WinSize.X;//터지냐....왜........
 	float AllSpriteWidth = (_BrickSize.X * static_cast<float>(_Count.X)) / 2;
 	float gap = WinSize - AllSpriteWidth;
 	SetActorLocation({ gap ,100.f });

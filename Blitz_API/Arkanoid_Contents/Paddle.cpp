@@ -10,7 +10,7 @@
 
 Paddle::Paddle()
 {
-	SetActorLocation({ 400,800 });
+	SetActorLocation({ 400,950 });
 
 	{
 		//SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();		
@@ -28,7 +28,7 @@ Paddle::Paddle()
 	// static sprite
 	USpriteRenderer* SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 	SpriteRenderer->SetOrder(ERenderOrder::Bricks);
-	SpriteRenderer->SetSprite("paddle.png");
+	SpriteRenderer->SetSprite("paddle_small.png");
 	FVector2D PaddleScale = SpriteRenderer->SetSpriteScale(1.0f);
 
 	}

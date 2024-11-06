@@ -8,7 +8,7 @@
 #include <EngineBase/EngineDirectory.h>
 #include <EngineBase/EngineRandom.h>
 
-
+#include "ContentsEnum.h"
 
 
 
@@ -18,19 +18,22 @@
 void BrickEditorGameMode::BeginPlay()
 {
 	Super::BeginPlay();
-	{
-		GroundTileMap = GetWorld()->SpawnActor<BrickEditor>();
-	}
+
+	//SetActorLocation(UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half());
 
 	{
+		//FVector2D Size = Globals::BrickSize; //{ 65,30 };
+		FVector2D Size = { 57,26 };
+		FIntPoint Num = { 10,8 };
+
 		WallTileMap = GetWorld()->SpawnActor<BrickEditor>();
-		WallTileMap->Create("Brick", { 10, 12 }, { 77, 38 });
+		WallTileMap->Create("Brick", Num, Size);
 
-		for (int y = 0; y < 12; y++)
+		for (int y = 0; y < Num.X; y++)
 		{
-			for (int x = 0; x < 10; x++)
+			for (int x = 0; x < Num.Y; x++)
 			{
-				WallTileMap->SetBrickIndex({ y,x }, { 0, 0 }, { 77, 38 }, 2);
+				WallTileMap->SetBrickIndex({ y,x }, { 0, 0 }, Size, 2);
 			}
 		}
 	}

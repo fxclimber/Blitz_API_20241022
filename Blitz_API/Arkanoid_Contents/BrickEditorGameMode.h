@@ -16,8 +16,6 @@ protected:
 
 private:
 	BrickEditor* WallTileMap = nullptr;
-	BrickEditor* GroundTileMap = nullptr;
-
 	std::string LoadFileName;
 
 };

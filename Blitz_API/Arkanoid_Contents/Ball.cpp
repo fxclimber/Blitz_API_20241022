@@ -15,7 +15,7 @@ ABall::ABall()
     SetActorLocation({ 400,800 });
 
 	SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
-	SpriteRenderer->SetSprite("ball_blue.png");
+	SpriteRenderer->SetSprite("ball_red.png");
 	SpriteRenderer->SetComponentScale({ 22, 22 });
 	SpriteRenderer->SetOrder(ERenderOrder::UI);
 
@@ -36,7 +36,7 @@ void ABall::BeginPlay()
 void ABall::Tick(float _DeltaTime)
 {
     // 벽 충돌 체크 및 속도 반사
-    int MaxTop = 50, MaxBottom = 850, MaxLeft = 50, MaxRight = 750;
+    int MaxTop = 101, MaxBottom = 980, MaxLeft = 46, MaxRight = 725;
     FVector2D ballPos = GetActorLocation();
     FVector2D ballScale = GetRender()->GetComponentScale();
     float tolerance = 0.02f + ballScale.X / 2;

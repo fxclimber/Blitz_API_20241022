@@ -6,6 +6,7 @@
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineCore/EngineCoreDebug.h>
 
+#include "ContentsEnum.h"
 #include "TileMapGameMode.h"
 #include <EngineCore/Level.h>
 #include <EngineBase/EngineFile.h>
@@ -23,13 +24,6 @@
 
 #include "BrickEditor.h"
 
-APlayGameMode::APlayGameMode()
-{
-}
-
-APlayGameMode::~APlayGameMode()
-{
-}
 
 void APlayGameMode::BeginPlay()
 {
@@ -38,20 +32,21 @@ void APlayGameMode::BeginPlay()
 	// 1. 카메라 사용안하기로 설정
 	GetWorld()->SetCameraToMainPawn(false);
 
+
 	// 2. 타일맵 객체 초기화
 	{
 		//GroundTileMap = GetWorld()->SpawnActor<ATileMap>();
 	}
 
 	{
-		WallTileMap = GetWorld()->SpawnActor<ATileMap>();
+		WallTileMap = GetWorld()->SpawnActor<BrickEditor>();
 		WallTileMap->Create("Brick", { 10, 12 }, { 77, 38 });
 
 		for (int y = 0; y < 12; y++)
 		{
 			for (int x = 0; x < 10; x++)
 			{
-				WallTileMap->SetTileIndex({ y,x }, { 0, 0 }, { 77, 38 }, 0);
+				//WallTileMap->SetTileIndex({ y,x }, { 0, 0 }, { 77, 38 }, 0);
 			}
 		}
 	}
@@ -77,6 +72,17 @@ void APlayGameMode::BeginPlay()
 	// [중요] 패들(현재 "플레이어-벽돌충돌위치" 로직을, "볼-벽돌"관계로 변경하고,로직을 벽돌로 옮겨야함), 
 	// [중요] 볼(현재 "볼의 "벽에 충돌하는""로직을 , 볼로 옮겨야함
 	Map_Play* NewActor = GetWorld()->SpawnActor<Map_Play>();
+	FVector2D brickSize = WallTileMap->GetBrickSize();
+	FIntPoint size = brickSize.ConvertToPoint();
+	FIntPoint brickCount = WallTileMap->GetBrickCount();
+
+	// FIntPoint를 FVector2D로 변환하여 SetActorLocation에 전달
+	FVector2D location((size.X * brickCount.X), (size.Y * brickCount.Y));
+	FVector2D winSize = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
+	float tilePos = (winSize.X - location.X ) / 2;
+	WallTileMap->SetActorLocation(FVector2D(tilePos, 180.0f));
+
+
 	Player = GetWorld()->SpawnActor<APlayer>();
 	paddle = GetWorld()->SpawnActor<Paddle>();
 	brick = GetWorld()->SpawnActor<Brick>();

@@ -46,6 +46,7 @@ public:
 	{
 		return static_cast<int>(Y);
 	}
+	class FIntPoint ConvertToPoint() const;
 
 	// X든 Y든 0이있으면 터트리는 함수.
 	bool IsZeroed() const
@@ -229,7 +230,18 @@ public:
 		return *this;
 	}
 
+	//FIntPoint operator*(float _Value) const
+	//{
+	//	FIntPoint Result;
+	//	Result.X = static_cast<int>(X * _Value);
+	//	Result.Y = static_cast<int>(Y * _Value);
+	//	return Result;
+	//}
 
+	FIntPoint operator*(const FIntPoint& Other) const
+	{
+		return FIntPoint(X * Other.X, Y * Other.Y);
+	}
 };
 
 class EngineMath
